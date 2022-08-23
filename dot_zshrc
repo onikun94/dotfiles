@@ -1,0 +1,17 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+ZSH_DIR="${HOME}"
+if [ -d $ZSH_DIR ] && [ -r $ZSH_DIR ] && [ -x $ZSH_DIR ]; then
+    for file in ${ZSH_DIR}/zshrc.d/*.zsh; do
+        [ -r $file ] && source $file
+    done
+fi
+typeset -U path PATH
+path=(
+	/opt/homebrew/bin(N-/)
+	/usr/local/bin(N-/)
+	$path
+)
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
