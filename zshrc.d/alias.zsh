@@ -63,6 +63,15 @@ function g.(){
   ./$1.out
 }
 
+#application
+function start(){
+  open -a $1;
+}
+
+function stop(){
+  osascript -e "quit app \"${1}\"";
+}
+
 
 #zshrc
 alias zs='nvim ~/.zshrc'
