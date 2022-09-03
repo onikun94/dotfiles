@@ -10,7 +10,7 @@ M.plugins = {
 }
 
 M.ui = {
-  theme = "gatekeeper",
+  theme = "ayu-dark",
 }
 
 return M
