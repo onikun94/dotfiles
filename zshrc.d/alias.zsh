@@ -72,6 +72,9 @@ function stop(){
   osascript -e "quit app \"${1}\"";
 }
 
+function gn(){
+  open -a "GoodNotes";
+}
 
 #zshrc
 alias zs='nvim ~/.zshrc'
