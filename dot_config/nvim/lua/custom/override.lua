@@ -14,7 +14,7 @@ return {
     --NvChad-after = "base46",
     module = "nvchad_ui",
     statusline = {
-      separator_style = "block",
+      separator_style = "default",
       overriden_modules = nil,
     },
     tabufline = {
