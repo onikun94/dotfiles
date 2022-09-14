@@ -6,12 +6,6 @@ if [ -d $ZSH_DIR ] && [ -r $ZSH_DIR ] && [ -x $ZSH_DIR ]; then
         [ -r $file ] && source $file
     done
 fi
-typeset -U path PATH
-path=(
-	/opt/homebrew/bin(N-/)
-	/usr/local/bin(N-/)
-	$path
-)
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
