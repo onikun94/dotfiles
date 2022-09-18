@@ -7,6 +7,9 @@ return {
       "lua-language-server",
       "stylua",
 
+      --webdev
+      "typescript-language-server"
+
     },
   },
 
