@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm';
 
 return {
+  window_background_opacity = 0.5,
   --font = wezterm.font("Cica"), -- 自分の好きなフォントいれる
   font = wezterm.font 'JetBrains Mono',
   use_ime = true, -- wezは日本人じゃないのでこれがないとIME動かない
