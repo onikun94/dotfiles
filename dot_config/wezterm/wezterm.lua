@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm';
 
 return {
-  window_background_opacity = 0.5,
+  window_background_opacity = 0.7,
   --font = wezterm.font("Cica"), -- 自分の好きなフォントいれる
   font = wezterm.font 'JetBrains Mono',
   use_ime = true, -- wezは日本人じゃないのでこれがないとIME動かない
@@ -14,17 +14,17 @@ return {
   --my setting
   enable_tab_bar = false,
   window_decorations = "RESIZE",
-  leader = { key = 'a', mods = 'CMD', timeout_milliseconds = 1000 },
+  leader = { key = 't', mods = 'CTRL', timeout_milliseconds = 1000 },
   keys = {
-    {
-      key = '|',
-      mods = 'LEADER|SHIFT',
-      action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-    },
-    {
-      key = '-',
-      mods = 'LEADER',
-      action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
-    },
+      { key = "-", mods = "LEADER",       action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
+      { key = "|",mods = "LEADER",       action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
+      { key = "h", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Left"}},
+      { key = "j", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Down"}},
+      { key = "k", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Up"}},
+      { key = "l", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Right"}},
+      { key = "H", mods = "LEADER|SHIFT", action=wezterm.action{AdjustPaneSize={"Left", 5}}},
+      { key = "J", mods = "LEADER|SHIFT", action=wezterm.action{AdjustPaneSize={"Down", 5}}},
+      { key = "K", mods = "LEADER|SHIFT", action=wezterm.action{AdjustPaneSize={"Up", 5}}},
+      { key = "L", mods = "LEADER|SHIFT", action=wezterm.action{AdjustPaneSize={"Right", 5}}},
   },
 }
