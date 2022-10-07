@@ -2,5 +2,12 @@ return {
   ["goolord/alpha-nvim"] = {
     disable = false,
   },
-  ["wakatime/vim-wakatime"] = {}
+  ["wakatime/vim-wakatime"] = {},
+
+  ["neovim/nvim-lspconfig"] = {
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.plugins.lspconfig"
+    end,
+  },
 }
