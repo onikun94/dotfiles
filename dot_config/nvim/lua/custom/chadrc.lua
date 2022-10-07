@@ -10,7 +10,7 @@ M.plugins = {
 }
 
 M.ui = {
-  theme = "ayu-dark",
+  transparency = true,
 }
 
 return M
