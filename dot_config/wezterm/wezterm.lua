@@ -1,9 +1,9 @@
 local wezterm = require 'wezterm';
-
+local act = wezterm.action
 return {
-  window_background_opacity = 0.7,
+  window_background_opacity = 0.8,
   --font = wezterm.font("Cica"), -- 自分の好きなフォントいれる
-  font = wezterm.font 'JetBrains Mono',
+  font = wezterm.font("Hack Nerd Font", {weight="Regular", stretch="Normal", style="Normal"}),
   use_ime = true, -- wezは日本人じゃないのでこれがないとIME動かない
   initial_cols = 260,
   initial_rows = 65,
@@ -26,5 +26,9 @@ return {
       { key = "J", mods = "LEADER|SHIFT", action=wezterm.action{AdjustPaneSize={"Down", 5}}},
       { key = "K", mods = "LEADER|SHIFT", action=wezterm.action{AdjustPaneSize={"Up", 5}}},
       { key = "L", mods = "LEADER|SHIFT", action=wezterm.action{AdjustPaneSize={"Right", 5}}},
+      -- scroll setting
+      { key = "PageUp", mods = "LEADER", action = act.ScrollByPage(-1)},
+      { key = "PageDown", mods = "LEADER", action = act.ScrollByPage(1)}
   },
+
 }
