@@ -8,7 +8,9 @@ return {
       "stylua",
 
       --webdev
-      "typescript-language-server"
+      "typescript-language-server",
+      "tailwindcss-language-server",
+      "tailwindcss"
 
     },
   },
