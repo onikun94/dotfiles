@@ -4,6 +4,11 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require ("lspconfig")
 local util = require("lspconfig/util")
 
+
+on_attach = function (client,bufnr)
+  local bufopts = {noremap=true,silent=true, buffer=bufnr}
+  vim.keymap.set('n','gd',vim.lsp.buf.definition, bufopts)
+end
 -- :h lspconfig-all
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = { "tsserver","tailwindcss" }
