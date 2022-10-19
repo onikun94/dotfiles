@@ -20,12 +20,6 @@ return {
       require('nvim-ts-autotag').setup()
     end
   },
-  ["phaazon/hop.nvim"] = {
-      branch = "v2",
-      config = function ()
-        require("hop").setup()
-      end
-  },
   ["nvim-treesitter/nvim-treesitter"] = {
     override_options = overrides.treesitter,
   },
