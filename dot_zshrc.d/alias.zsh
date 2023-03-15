@@ -76,6 +76,17 @@ function gn(){
   open -a "GoodNotes";
 }
 
+#git account change
+function gitonikun() {
+  git config --global user.name "onikun94"
+  git config --global user.email "onikun94@gmail.com"
+}
+
+function gitgyoza() {
+  git config --global user.name "gyoza94"
+  git config --global user.email "taiyotaitai0622@gmail.com"
+}
+
 #zshrc
 alias zs='nvim ~/.zshrc'
 alias zss='source ~/.zshrc'

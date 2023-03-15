@@ -12,16 +12,19 @@ return {
       require "custom.plugins.lspconfig"
     end,
   },
+  ["windwp/nvim-ts-autotag"] = {
+    config = function ()
+      require('nvim-ts-autotag').setup({})
+    end
+  },
   ["folke/which-key.nvim"] = {
     disable = false,
   },
-  ["windwp/nvim-ts-autotag"] = {
-    config = function ()
-      require('nvim-ts-autotag').setup()
-    end
-  },
   ["nvim-treesitter/nvim-treesitter"] = {
     override_options = overrides.treesitter,
+    autotag = {
+      enable = true
+    }
   },
   ["jose-elias-alvarez/null-ls.nvim"] = {
     after = "nvim-lspconfig",

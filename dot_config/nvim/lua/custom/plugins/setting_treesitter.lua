@@ -4,9 +4,11 @@ return {
     "json",
     "css",
     "html",
+    "javascript",
     "typescript"
   },
   autotag = {
     enable = true,
-  },
+    filetypes = {"tsx"}
+  }
 }
