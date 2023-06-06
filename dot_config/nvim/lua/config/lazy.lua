@@ -16,6 +16,7 @@ vim.opt.termguicolors = true
 
 vim.cmd('highlight SignColumn guibg=NONE')
 
+vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 --tabの間隔とか
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2

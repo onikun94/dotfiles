@@ -19,9 +19,11 @@ cmp.setup({
 		}),
 	}),
 	sources = cmp.config.sources({
+		{ name = "copilot",  priority = 90 },
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
 		{ name = 'buffer' },
+		{ name = "emoji",    insert = true, priority = 60 },
 	}),
 	formatting = {
 		format = require("lspkind").cmp_format({
@@ -49,6 +51,7 @@ cmp.setup({
 			},
 		})
 	}
+
 })
 
 --vim.cmd [[

@@ -1,16 +1,14 @@
 return {
-	{
-		'nvim-tree/nvim-tree.lua',
-		cmd = { "NvimTreeNormal", "NvimTreeToggle", "NvimTreeFocus" },
-		init = require("utils").load_mappings "nvimtree",
-		--vim.keymap.set("n", "<leader>e", "<cmd> NvimTreeFocus <CR>", { desc = "focus nvimtree" }),
-		--vim.keymap.set("n", "<C-n>", "<cmd> NvimTreeToggle <CR>", { desc = "toggle nvimtree" }),
-		dependencies = {
-			'nvim-tree/nvim-web-devicons', },
-		config = function()
-			require('config/nvim-tree')
-		end
-	},
+	--{
+	--	'nvim-tree/nvim-tree.lua',
+	--	cmd = { "NvimTreeNormal", "NvimTreeToggle", "NvimTreeFocus" },
+	--	init = require("utils").load_mappings "nvimtree",
+	--	dependencies = {
+	--		'nvim-tree/nvim-web-devicons', },
+	--	config = function()
+	--		require('config/nvim-tree')
+	--	end
+	--},
 	{
 		"wakatime/vim-wakatime",
 		lazy = false,
@@ -22,33 +20,6 @@ return {
 		},
 
 		init = require("utils").load_mappings "telescope",
-		--keys = {
-		--	-- add a keymap to browse plugin files
-		--	-- stylua: ignore
-		--	{
-		--		"<leader>ff",
-		--		function()
-		--			require("telescope.builtin").find_files(
-		--			--{
-		--			--  cwd = require("lazy.core.config").options.root
-		--			--}
-		--			) --検索対象
-		--		end,
-		--		desc = "Find Plugin File",
-		--	},
-		--	{
-		--		"<leader>fw",
-		--		function()
-		--			require("telescope.builtin").live_grep(
-		--			--{
-		--			--cwd = require("lazy.core.config").options.root
-		--			--}
-		--			)
-		--		end,
-		--		desc = "Grep Plugin File",
-		--	}
-
-		--},
 		-- change some options
 		opts = {
 			defaults = {
@@ -100,10 +71,26 @@ return {
 		end
 	},
 	{
+		"onsails/lspkind.nvim",
+		config = function()
+			require('config/lspkind')
+		end
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		event = 'InsertEnter',
-		dependencies = { "onsails/lspkind.nvim", 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-path' },
+		dependencies = {
+			'hrsh7th/cmp-nvim-lsp',
+			'saadparwaiz1/cmp_luasnip',
+			'hrsh7th/cmp-path',
+			"hrsh7th/cmp-emoji",
+			{
+				"zbirenbaum/copilot-cmp",
+				config = function()
+					require("copilot_cmp").setup()
+				end
+			},
+		},
 		config = function()
 			require('config/cmp')
 		end,
@@ -132,20 +119,6 @@ return {
 			require("nvim-autopairs").setup {}
 		end
 	},
-	--  {
-	--    "hrsh7th/nvim-cmp",
-	--    -- load cmp on InsertEnter
-	--    event = "InsertEnter",
-	--    -- these dependencies will only be loaded when cmp loads
-	--    -- dependencies are always lazy-loaded unless specified otherwise
-	--    dependencies = {
-	--      "hrsh7th/cmp-nvim-lsp",
-	--      "hrsh7th/cmp-buffer",
-	--    },
-	--    config = function()
-	--      -- ...
-	--    end,
-	--  },
 	{
 		'akinsho/bufferline.nvim',
 		version = "*",
@@ -154,12 +127,6 @@ return {
 			require('config/bufferline')
 		end
 	},
-	--{
-	--	'marko-cerovac/material.nvim',
-	--	config = function()
-	--		require('config/material')
-	--	end
-	--},
 	---- Snippet
 	{
 		"L3MON4D3/LuaSnip",
@@ -172,4 +139,98 @@ return {
 			require("telescope").load_extension("luasnip")
 		end,
 	},
+	--------------------------------
+	-- Filer
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		event = "VimEnter",
+		cmd = "Neotree",
+		init = function() vim.g.neo_tree_remove_legacy_commands = true end,
+		branch = "v2.x",
+		--cmd = { "NeoTree" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+		},
+		config = function()
+			require('config/neo-tree')
+		end
+		--event = "VimEnter",
+	},
+
+	--------------------------------
+	--{
+	--	"folke/edgy.nvim",
+	--	event = "VeryLazy",
+	--	opts = {
+	--		bottom = {
+	--			-- toggleterm / lazyterm at the bottom with a height of 40% of the screen
+	--			{ ft = "toggleterm",    size = { height = 0.4 } },
+	--			{
+	--				ft = "lazyterm",
+	--				title = "LazyTerm",
+	--				size = { height = 0.4 },
+	--				filter = function(buf)
+	--					return not vim.b[buf].lazyterm_cmd
+	--				end,
+	--			},
+	--			"Trouble",
+	--			{ ft = "qf",            title = "QuickFix" },
+	--			{ ft = "help",          size = { height = 20 } },
+	--			{ ft = "spectre_panel", size = { height = 0.4 } },
+	--		},
+	--		left = {
+	--			-- Neo-tree filesystem always takes half the screen height
+	--			{
+	--				title = "Neo-Tree",
+	--				ft = "neo-tree",
+	--				filter = function(buf)
+	--					return vim.b[buf].neo_tree_source == "filesystem"
+	--				end,
+	--				size = { height = 0.5 },
+	--			},
+	--			{
+	--				title = "Neo-Tree Git",
+	--				ft = "neo-tree",
+	--				filter = function(buf)
+	--					return vim.b[buf].neo_tree_source == "git_status"
+	--				end,
+	--				size = { height = 0.2 },
+	--				pinned = true,
+	--				open = "Neotree position=right git_status",
+	--			},
+	--		},
+	--	},
+	--},
+	------
+	--{ 'akinsho/toggleterm.nvim', version = "*", config = true }
+	--
+	-- tell cmp to use luasnip as a sources
+	--{ 'saadparwaiz1/cmp_luasnip' },leader
+	{
+		"zbirenbaum/copilot.lua",
+		--cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			vim.defer_fn(function()
+				require("copilot").setup()
+			end, 100)
+		end,
+	},
+
+	--{
+	--	"zbirenbaum/copilot-cmp",
+	--	config = function()
+	--		require("copilot_cmp").setup()
+	--	end
+	--},
+	{
+		"nvim-telescope/telescope-frecency.nvim",
+		config = function()
+			require("telescope").load_extension("frecency")
+		end,
+		dependencies = { "kkharji/sqlite.lua" },
+	}
+
 }
