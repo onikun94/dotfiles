@@ -36,15 +36,25 @@ M.lspconfig = {
 	}
 }
 
-M.nvimtree = {
-	--plugin = true,
-
+--M.nvimtree = {
+--	--plugin = true,
+--
+--	n = {
+--		-- toggle
+--		["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
+--
+--		-- focus
+--		["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
+--	}
+--}
+M.neotree = {
 	n = {
 		-- toggle
-		["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-
-		-- focus
-		["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
+		["<leader>e"] = {
+			function()
+				require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+			end
+		}
 	}
 }
 
@@ -54,8 +64,8 @@ M.telescope = {
 		["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
 		["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
 		["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
+		["<leader>fr"] = { "<cmd> Telescope frecency <CR>", "frecency" },
 	}
 }
-
 
 return M
