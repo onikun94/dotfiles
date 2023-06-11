@@ -83,12 +83,11 @@ return {
 			'hrsh7th/cmp-nvim-lsp',
 			'saadparwaiz1/cmp_luasnip',
 			'hrsh7th/cmp-path',
-			"hrsh7th/cmp-emoji",
+			'hrsh7th/cmp-emoji',
+			'hrsh7th/cmp-buffer',
 			{
 				"zbirenbaum/copilot-cmp",
-				config = function()
-					require("copilot_cmp").setup()
-				end
+				config = true
 			},
 		},
 		config = function()
@@ -208,9 +207,10 @@ return {
 	--
 	-- tell cmp to use luasnip as a sources
 	--{ 'saadparwaiz1/cmp_luasnip' },leader
+
 	{
 		"zbirenbaum/copilot.lua",
-		--cmd = "Copilot",
+		cmd = "Copilot",
 		event = "InsertEnter",
 		config = function()
 			vim.defer_fn(function()
@@ -219,12 +219,6 @@ return {
 		end,
 	},
 
-	--{
-	--	"zbirenbaum/copilot-cmp",
-	--	config = function()
-	--		require("copilot_cmp").setup()
-	--	end
-	--},
 	{
 		"nvim-telescope/telescope-frecency.nvim",
 		config = function()

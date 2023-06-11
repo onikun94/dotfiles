@@ -19,11 +19,13 @@ cmp.setup({
 		}),
 	}),
 	sources = cmp.config.sources({
-		{ name = "copilot",  priority = 90 },
+		{ name = "copilot", priority = 90 },
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
 		{ name = 'buffer' },
-		{ name = "emoji",    insert = true, priority = 60 },
+		{ name = "emoji",   insert = true, priority = 60 },
+		{ name = "path",    priority = 100 },
+		{ name = "buffer",  priority = 80 },
 	}),
 	formatting = {
 		format = require("lspkind").cmp_format({
@@ -38,8 +40,6 @@ cmp.setup({
 				nvim_lua = "[NeovimLua]",
 				latex_symbols = "[LaTeX]",
 				path = "[Path]",
-				omni = "[Omni]",
-				spell = "[Spell]",
 				emoji = "[Emoji]",
 				calc = "[Calc]",
 				rg = "[Rg]",
