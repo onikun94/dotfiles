@@ -20,7 +20,7 @@ M.lspconfig = {
 		},
 		["gr"] = {
 			function()
-				vim.lsp.buf.declaration()
+				vim.lsp.buf.references()
 			end
 		},
 		["gk"] = {
@@ -31,6 +31,16 @@ M.lspconfig = {
 		["gi"] = {
 			function()
 				vim.lsp.buf.implementation()
+			end
+		},
+		["<space>f"] = {
+			function()
+				vim.lsp.buf.formatting()
+			end
+		},
+		["<space>m"] = {
+			function()
+				vim.diagnostic.open_float()
 			end
 		}
 	}
@@ -68,4 +78,18 @@ M.telescope = {
 	}
 }
 
+M.bufferline = {
+	n = {
+		["<Tab>"] = { "<Cmd> BufferLineCycleNext <CR>", "buffer next" },
+		["<S-Tab>"] = { "<Cmd> BufferLineCyclePrev <CR>", "buffer prev" },
+		["<leader>l"] = { "<Cmd> BufferLineMoveNext <CR>", "buffer move" },
+		["<leader>h"] = { "<Cmd> BufferLineMovePrev <CR>", "buffer move" },
+	}
+}
+
+M.copilot = {
+	i = {
+		["<leader>c"] = { "<Cmd> Copilot panel <CR>", "copilot panel" }
+	}
+}
 return M
