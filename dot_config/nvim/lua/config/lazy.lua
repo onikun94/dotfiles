@@ -24,6 +24,12 @@ vim.o.softtabstop = 0
 
 -- tablineの設定
 vim.opt.termguicolors = true
+
+
+--abbreviations
+vim.cmd("iabbrev imprto import")
+vim.cmd("iabbrev improt import")
+
 --lazy初期設定
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

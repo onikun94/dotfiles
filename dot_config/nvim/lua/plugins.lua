@@ -30,6 +30,7 @@ return {
 			},
 		},
 	},
+
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,  -- make sure we load this during startup if it is your main colorscheme
@@ -214,7 +215,8 @@ return {
 		event = "InsertEnter",
 		config = function()
 			vim.defer_fn(function()
-				require("copilot").setup()
+				--require("copilot").setup()
+				require("config/copilot")
 			end, 100)
 		end,
 	},

@@ -7,6 +7,10 @@ M.general = {
 		["<C-l>"] = { "<Right>", "move right" },
 		["<C-j>"] = { "<Down>", "move down" },
 		["<C-k>"] = { "<Up>", "move up" },
+	},
+	n = {
+		-- del buffer
+		["<leader>x"] = { "<cmd> bd <CR>", "delete buffer" },
 	}
 }
 
