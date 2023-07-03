@@ -33,7 +33,7 @@ return {
 
   {
     "folke/tokyonight.nvim",
-    lazy = false,  -- make sure we load this during startup if it is your main colorscheme
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('config/tokyonight')
@@ -151,6 +151,13 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+--
+--
+--
+--
+--
+--
+--
       "MunifTanjim/nui.nvim",
     },
     config = function()
@@ -227,6 +234,20 @@ return {
       require("telescope").load_extension("frecency")
     end,
     dependencies = { "kkharji/sqlite.lua" },
+  },
+
+  
+  {
+    "glepnir/lspsaga.nvim",
+    event = "LspAttach",
+    config = function()
+        require("lspsaga").setup({})
+    end,
+    dependencies = {
+      {"nvim-tree/nvim-web-devicons"},
+      --Please make sure you install markdown and markdown_inline parser
+      {"nvim-treesitter/nvim-treesitter"}
+    }
   }
 
 }

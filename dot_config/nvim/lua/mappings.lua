@@ -14,53 +14,22 @@ M.general = {
   }
 }
 
-M.lspconfig = {
+M.lspsaga = {
   n = {
-    ["gd"] = {
-      function()
-        vim.lsp.buf.definition()
-      end,
-      "lsp definition",
-    },
-    ["gr"] = {
-      function()
-        vim.lsp.buf.references()
-      end
-    },
-    ["gk"] = {
-      function()
-        vim.lsp.buf.hover()
-      end
-    },
-    ["gi"] = {
-      function()
-        vim.lsp.buf.implementation()
-      end
-    },
-    ["<space>f"] = {
-      function()
-        vim.lsp.buf.formatting()
-      end
-    },
-    ["<space>m"] = {
-      function()
-        vim.diagnostic.open_float()
-      end
-    }
+    ["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "peek_definition" },
+    ["gh"] = { "<cmd>Lspsaga lsp_finder<CR>", "lsp_finder" },
+    ["gr"] = { "<cmd>Lspsaga rename<CR>", "rename" },
+    ["gd"] = { "<cmd>Lspsaga goto_definition<CR>", "goto_definition" },
+    ["gk"] = { "<Cmd>Lspsaga hover_doc<CR>", "hober def" },
+    ["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "peek_type_definition"},
+    ["<leader>ca"] = { "<cmd>Lspsaga code_action<CR>", "code_action" },
+    ["<leader>sl"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "show_line_diagnostics" },
+    ["<leader>sb"] = { "<cmd>Lspsaga show_buf_diagnostics<CR>", "show_buf_diagnostics" },
+    ["<leader>sw"] = { "<cmd>Lspsaga show_workspace_diagnostics<CR>", "show_workspace_diagnostics" },
+    ["<leader>sc"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "show_cursor_diagnostics" },
+    ["<leader>o"] = {"<cmd>Lspsaga outline<CR>"}
   }
 }
-
---M.nvimtree = {
---	--plugin = true,
---
---	n = {
---		-- toggle
---		["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
---
---		-- focus
---		["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
---	}
---}
 M.neotree = {
   n = {
     -- toggle
@@ -92,7 +61,7 @@ M.bufferline = {
 }
 
 M.copilot = {
-  i = {
+  n = {
     ["<leader>c"] = { "<Cmd> Copilot panel <CR>", "copilot panel" }
   }
 }

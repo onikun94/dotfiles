@@ -31,6 +31,9 @@ vim.opt.termguicolors = true
 vim.cmd("iabbrev imprto import")
 vim.cmd("iabbrev improt import")
 
+--行番号
+vim.cmd("set number")
+
 --lazy初期設定
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
