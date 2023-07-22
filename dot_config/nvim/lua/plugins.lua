@@ -151,13 +151,6 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
---
---
---
---
---
---
---
       "MunifTanjim/nui.nvim",
     },
     config = function()
@@ -228,26 +221,36 @@ return {
     end,
   },
 
-  {
-    "nvim-telescope/telescope-frecency.nvim",
-    config = function()
-      require("telescope").load_extension("frecency")
-    end,
-    dependencies = { "kkharji/sqlite.lua" },
-  },
+  --{
+  --  "nvim-telescope/telescope-frecency.nvim",
+  --  config = function()
+  --    require("telescope").load_extension("frecency")
+  --  end,
+  --  dependencies = { "kkharji/sqlite.lua" },
+  --},
 
-  
+
   {
     "glepnir/lspsaga.nvim",
     event = "LspAttach",
     config = function()
-        require("lspsaga").setup({})
+      require("lspsaga").setup({})
     end,
     dependencies = {
-      {"nvim-tree/nvim-web-devicons"},
+      { "nvim-tree/nvim-web-devicons" },
       --Please make sure you install markdown and markdown_inline parser
-      {"nvim-treesitter/nvim-treesitter"}
+      { "nvim-treesitter/nvim-treesitter" }
     }
+  },
+
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+  {
+    'wuelnerdotexe/vim-astro'
   }
 
 }

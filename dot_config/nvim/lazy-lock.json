@@ -1,4 +1,5 @@
 {
+  "Comment.nvim": { "branch": "master", "commit": "176e85eeb63f1a5970d6b88f1725039d85ca0055" },
   "LuaSnip": { "branch": "master", "commit": "65ff66db0e466369fa6fb7abb5e38627713182ff" },
   "bufferline.nvim": { "branch": "main", "commit": "41660189da6951d14436147dff30ed7f0d12ed01" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
@@ -25,11 +26,10 @@
   "nvim-treesitter": { "branch": "master", "commit": "150a4c9fa4743b9af7b95f68746778394ce2ac93" },
   "nvim-web-devicons": { "branch": "master", "commit": "2a125024a137677930efcfdf720f205504c97268" },
   "plenary.nvim": { "branch": "master", "commit": "36aaceb6e93addd20b1b18f94d86aecc552f30c4" },
-  "sqlite.lua": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
-  "telescope-frecency.nvim": { "branch": "master", "commit": "62d3381a32ae541233b03a129ece0aeced30ad5e" },
   "telescope-luasnip.nvim": { "branch": "master", "commit": "849c4ee1951f34041a26744d2a88284545564ff0" },
   "telescope.nvim": { "branch": "master", "commit": "b14de80d1cdf66f988f6550ca8577c43bb3797cd" },
   "tokyonight.nvim": { "branch": "main", "commit": "161114bd39b990995e08dbf941f6821afbdcd666" },
+  "vim-astro": { "branch": "main", "commit": "34732be5e9a5c28c2409f4490edf92d46d8b55a9" },
   "vim-wakatime": { "branch": "master", "commit": "018fa9a80c27ccf2a8967b9e27890372e5c2fb4f" },
   "which-key.nvim": { "branch": "main", "commit": "e271c28118998c93a14d189af3395812a1aa646c" }
 }
