@@ -1,8 +1,9 @@
 require("nvim-treesitter.configs").setup({
-  ensure_installed = "all", -- one of 'all', 'language', or a list of languages
+  ensure_installed = "all",  -- one of 'all', 'language', or a list of languages
+  ignore_install = { "wing" }, -- List of parsers to ignore installing
   highlight = {
-    enable = true,         -- false will disable the whole extension
-    disable = {},          -- list of language that will be disabled
+    enable = true,           -- false will disable the whole extension
+    disable = {},            -- list of language that will be disabled
     -- disable = function(lang, bufnr)
     -- 		return lang == "cmake" or ts_disable(lang, bufnr)
     -- end,
