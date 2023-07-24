@@ -251,6 +251,8 @@ return {
   },
   {
     'wuelnerdotexe/vim-astro'
-  }
-
+  },
+  {
+    "machakann/vim-sandwich",
+  },
 }
