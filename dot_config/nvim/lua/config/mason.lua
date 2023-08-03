@@ -6,6 +6,7 @@ local options = {
     "html-lsp",
     "typescript-language-server",
     "astro-language-server",
+    "tailwindcss"
   }, -- not an option from mason.nvim
 
   PATH = "skip",

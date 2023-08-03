@@ -136,7 +136,7 @@ require("neo-tree").setup({
       hide_gitignored = false,
       hide_hidden = true, -- only works on Windows for hidden files/directories
       hide_by_name = {
-        "node_modules"
+        --"node_modules"
       },
       hide_by_pattern = { -- uses glob style patterns
         --"*.meta",
