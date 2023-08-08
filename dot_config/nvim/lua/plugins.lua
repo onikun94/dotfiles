@@ -255,4 +255,13 @@ return {
   {
     "machakann/vim-sandwich",
   },
+  {
+    "windwp/nvim-ts-autotag",
+  },
+  {
+    "dinhhuy258/git.nvim",
+    config = function()
+      require("config/git")
+    end,
+  },
 }
