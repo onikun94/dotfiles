@@ -33,6 +33,7 @@ alias cp='cp -i'
 alias cl='clear'
 #ls
 alias ll='ls -al'
+alias llt='ls -alt'
 #cat
 alias c='cat'
 #cd
