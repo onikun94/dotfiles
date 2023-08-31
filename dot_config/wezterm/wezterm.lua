@@ -12,7 +12,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   adjust_window_size_when_changing_font_size = false,
   --my setting
-  enable_tab_bar = false,
+  --enable_tab_bar = false,
   window_decorations = "RESIZE",
   leader = { key = "t", mods = "CTRL", timeout_milliseconds = 1000 },
   keys = {
