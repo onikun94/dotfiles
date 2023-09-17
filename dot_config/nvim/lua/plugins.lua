@@ -234,7 +234,7 @@ return {
     "glepnir/lspsaga.nvim",
     event = "LspAttach",
     config = function()
-      require("lspsaga").setup({})
+      require("config/lspsaga")
     end,
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
@@ -261,7 +261,8 @@ return {
   {
     "dinhhuy258/git.nvim",
     config = function()
-      require("config/git")
+      --require("config/git")
+      require("git").setup()
     end,
   },
 }
