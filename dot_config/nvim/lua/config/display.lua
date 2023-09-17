@@ -40,3 +40,10 @@ vim.cmd("set noswapfile")
 --astron設定
 vim.g.astro_typescript = 'enable'
 vim.g.astro_stylus = 'enable'
+
+-- hキーの動作を再マッピング: 行の先頭で押すと前の行の末尾へ
+vim.api.nvim_set_keymap('n', 'h', 'col(\'.\') == 1 ? \'k$\' : \'h\'', { noremap = true, expr = true, silent = true })
+
+-- lキーの動作を再マッピング: 行の末尾で押すと次の行の先頭へ
+vim.api.nvim_set_keymap('n', 'l', 'col(\'.\') == col(\'$\') - 1 ? \'j0\' : \'l\'',
+  { noremap = true, expr = true, silent = true })
