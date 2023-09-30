@@ -47,3 +47,17 @@ vim.api.nvim_set_keymap('n', 'h', 'col(\'.\') == 1 ? \'k$\' : \'h\'', { noremap 
 -- lキーの動作を再マッピング: 行の末尾で押すと次の行の先頭へ
 vim.api.nvim_set_keymap('n', 'l', 'col(\'.\') == col(\'$\') - 1 ? \'j0\' : \'l\'',
   { noremap = true, expr = true, silent = true })
+
+function copy_filepath_to_clipboard()
+  local filepath = vim.fn.expand('%')
+  vim.fn.setreg('*', filepath)
+end
+
+vim.cmd("command! PathCopy lua copy_filepath_to_clipboard()")
+
+function replace_in_buffer(search, replace)
+  local command = string.format("%%s/%s/%s/gc", search, replace)
+  vim.cmd(command)
+end
+
+vim.cmd("command! -nargs=+ Replace lua replace_in_buffer(<f-args>)")
