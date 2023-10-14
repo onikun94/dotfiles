@@ -7,13 +7,17 @@ return {
   use_ime = true, -- wezは日本人じゃないのでこれがないとIME動かない
   initial_cols = 260,
   initial_rows = 65,
-  font_size = 14.0,
+  font_size = 16.0,
   --color_scheme = "OneHalfDark", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
   hide_tab_bar_if_only_one_tab = true,
   adjust_window_size_when_changing_font_size = false,
   --my setting
   --enable_tab_bar = false,
   window_decorations = "RESIZE",
+  colors = {
+    foreground = "#9ea3c0",
+    background = "#222433",
+  },
   leader = { key = "t", mods = "CTRL", timeout_milliseconds = 1000 },
   keys = {
     { key = "-",        mods = "LEADER",       action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
