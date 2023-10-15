@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+require("events.tabtitle").setup()
 return {
   window_background_opacity = 0.7,
   --font = wezterm.font("Cica"), -- 自分の好きなフォントいれる
