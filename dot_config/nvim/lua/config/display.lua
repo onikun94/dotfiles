@@ -61,3 +61,7 @@ function replace_in_buffer(search, replace)
 end
 
 vim.cmd("command! -nargs=+ Replace lua replace_in_buffer(<f-args>)")
+
+
+-- terminalを呼ぶ
+vim.api.nvim_create_user_command('T', 'split | wincmd j | terminal', {})
