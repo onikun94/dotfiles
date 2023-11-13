@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 require("events.tabtitle").setup()
 return {
-  window_background_opacity = 0.7,
+  window_background_opacity = 0.95,
   --font = wezterm.font("Cica"), -- 自分の好きなフォントいれる
   font = wezterm.font("Hack Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal" }),
   use_ime = true, -- wezは日本人じゃないのでこれがないとIME動かない
