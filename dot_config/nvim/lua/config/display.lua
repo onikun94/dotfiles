@@ -48,12 +48,23 @@ vim.api.nvim_set_keymap('n', 'h', 'col(\'.\') == 1 ? \'k$\' : \'h\'', { noremap 
 vim.api.nvim_set_keymap('n', 'l', 'col(\'.\') == col(\'$\') - 1 ? \'j0\' : \'l\'',
   { noremap = true, expr = true, silent = true })
 
+
+
 function copy_filepath_to_clipboard()
   local filepath = vim.fn.expand('%')
   vim.fn.setreg('*', filepath)
 end
 
 vim.cmd("command! PathCopy lua copy_filepath_to_clipboard()")
+
+--相対パス
+function copy_relative_filepath_to_clipboard()
+  local filepath = vim.fn.expand('%:.')
+  vim.fn.setreg('*', filepath)
+  vim.fn.setreg('+', filepath) -- システムのクリップボードにもコピーします
+end
+
+vim.cmd("command! RPathCopy lua copy_relative_filepath_to_clipboard()")
 
 function replace_in_buffer(search, replace)
   local command = string.format("%%s/%s/%s/gc", search, replace)
@@ -65,3 +76,10 @@ vim.cmd("command! -nargs=+ Replace lua replace_in_buffer(<f-args>)")
 
 -- terminalを呼ぶ
 vim.api.nvim_create_user_command('T', 'split | wincmd j | terminal', {})
+
+
+vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })
+
+
+vim.api.nvim_set_keymap('c', '<C-p>', '<Up>', { noremap = true })
+vim.api.nvim_set_keymap('c', '<C-n>', '<Down>', { noremap = true })
