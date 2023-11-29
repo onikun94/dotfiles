@@ -47,6 +47,14 @@ M.telescope = {
     ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
     ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
+    ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "buffers" },
+    ["<leader>cc"] = { "<cmd> Telescope commands <CR>", "commands" },
+    ["<leader>ch"] = { "<cmd> Telescope command_history <CR>", "command_history" },
+    ["<leader>gbb"] = { "<cmd> Telescope git_branches <CR>", "git_branches" },
+    ["<leader>gbl"] = { "<cmd> Telescope git_commits <CR>", "git_commits" },
+    ["<leader>gbc"] = { "<cmd> Telescope git_bcommits <CR>", "git_bcommits" },
+    ["<leader>gbs"] = { "<cmd> Telescope git_status <CR>", "git_status" },
+
   }
 }
 
