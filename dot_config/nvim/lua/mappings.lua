@@ -47,6 +47,8 @@ M.telescope = {
     ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
     ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
+    ["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+      "live grep with args" },
     ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "buffers" },
     ["<leader>cc"] = { "<cmd> Telescope commands <CR>", "commands" },
     ["<leader>ch"] = { "<cmd> Telescope command_history <CR>", "command_history" },

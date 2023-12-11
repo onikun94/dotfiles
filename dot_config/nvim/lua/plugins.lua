@@ -16,9 +16,9 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      'nvim-lua/plenary.nvim'
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-live-grep-args.nvim',
     },
-
     init = require("utils").load_mappings "telescope",
     -- change some options
     opts = {
@@ -29,6 +29,9 @@ return {
         winblend = 0,
       },
     },
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+    end
   },
 
   {
@@ -265,4 +268,5 @@ return {
       require("git").setup()
     end,
   },
+
 }
