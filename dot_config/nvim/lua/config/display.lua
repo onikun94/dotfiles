@@ -83,3 +83,6 @@ vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], { noremap = true })
 
 vim.api.nvim_set_keymap('c', '<C-p>', '<Up>', { noremap = true })
 vim.api.nvim_set_keymap('c', '<C-n>', '<Down>', { noremap = true })
+
+-- matchitの有効化
+vim.cmd('runtime macros/matchit.vim')
