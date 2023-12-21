@@ -1,14 +1,4 @@
 return {
-  --{
-  --	'nvim-tree/nvim-tree.lua',
-  --	cmd = { "NvimTreeNormal", "NvimTreeToggle", "NvimTreeFocus" },
-  --	init = require("utils").load_mappings "nvimtree",
-  --	dependencies = {
-  --		'nvim-tree/nvim-web-devicons', },
-  --	config = function()
-  --		require('config/nvim-tree')
-  --	end
-  --},
   {
     "wakatime/vim-wakatime",
     lazy = false,
