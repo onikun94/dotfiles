@@ -69,9 +69,4 @@ M.bufferline = {
   }
 }
 
-M.copilot = {
-  n = {
-    ["<leader>c"] = { "<Cmd> Copilot panel <CR>", "copilot panel" }
-  }
-}
 return M

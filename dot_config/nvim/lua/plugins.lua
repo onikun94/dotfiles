@@ -79,10 +79,6 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-emoji',
       'hrsh7th/cmp-buffer',
-      {
-        "zbirenbaum/copilot-cmp",
-        config = true
-      },
     },
     config = function()
       require('config/cmp')

@@ -40,6 +40,5 @@ require("lspkind").init({
     Event = "",
     Operator = "",
     TypeParameter = "",
-    Copilot = "",
   },
 })
