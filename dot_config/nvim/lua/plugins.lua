@@ -120,6 +120,9 @@ return {
   {
     "L3MON4D3/LuaSnip",
     dependencies = { "rafamadriz/friendly-snippets" },
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp"
   },
   {
     "benfowler/telescope-luasnip.nvim",
@@ -148,87 +151,29 @@ return {
     --event = "VimEnter",
   },
 
-  --------------------------------
   --{
-  --	"folke/edgy.nvim",
-  --	event = "VeryLazy",
-  --	opts = {
-  --		bottom = {
-  --			-- toggleterm / lazyterm at the bottom with a height of 40% of the screen
-  --			{ ft = "toggleterm",    size = { height = 0.4 } },
-  --			{
-  --				ft = "lazyterm",
-  --				title = "LazyTerm",
-  --				size = { height = 0.4 },
-  --				filter = function(buf)
-  --					return not vim.b[buf].lazyterm_cmd
-  --				end,
-  --			},
-  --			"Trouble",
-  --			{ ft = "qf",            title = "QuickFix" },
-  --			{ ft = "help",          size = { height = 20 } },
-  --			{ ft = "spectre_panel", size = { height = 0.4 } },
-  --		},
-  --		left = {
-  --			-- Neo-tree filesystem always takes half the screen height
-  --			{
-  --				title = "Neo-Tree",
-  --				ft = "neo-tree",
-  --				filter = function(buf)
-  --					return vim.b[buf].neo_tree_source == "filesystem"
-  --				end,
-  --				size = { height = 0.5 },
-  --			},
-  --			{
-  --				title = "Neo-Tree Git",
-  --				ft = "neo-tree",
-  --				filter = function(buf)
-  --					return vim.b[buf].neo_tree_source == "git_status"
-  --				end,
-  --				size = { height = 0.2 },
-  --				pinned = true,
-  --				open = "Neotree position=right git_status",
-  --			},
-  --		},
-  --	},
-  --},
-  ------
-  --{ 'akinsho/toggleterm.nvim', version = "*", config = true }
-  --
-  -- tell cmp to use luasnip as a sources
-  --{ 'saadparwaiz1/cmp_luasnip' },leader
-
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      vim.defer_fn(function()
-        --require("copilot").setup()
-        require("config/copilot")
-      end, 100)
-    end,
-  },
-
-  --{
-  --  "nvim-telescope/telescope-frecency.nvim",
+  --  "glepnir/lspsaga.nvim",
+  --  event = "LspAttach",
   --  config = function()
-  --    require("telescope").load_extension("frecency")
+  --    require("config/lspsaga")
   --  end,
-  --  dependencies = { "kkharji/sqlite.lua" },
+  --  dependencies = {
+  --    { "nvim-tree/nvim-web-devicons" },
+  --    --Please make sure you install markdown and markdown_inline parser
+  --    { "nvim-treesitter/nvim-treesitter" }
+  --  }
   --},
 
 
   {
-    "glepnir/lspsaga.nvim",
-    event = "LspAttach",
+    'nvimdev/lspsaga.nvim',
     config = function()
+      --    require('lspsaga').setup({})
       require("config/lspsaga")
     end,
     dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
-      --Please make sure you install markdown and markdown_inline parser
-      { "nvim-treesitter/nvim-treesitter" }
+      'nvim-treesitter/nvim-treesitter', -- optional
+      'nvim-tree/nvim-web-devicons'      -- optional
     }
   },
 
