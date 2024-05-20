@@ -1,0 +1,57 @@
+[
+    {
+        "key": "space e",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "!explorerViewletVisible && !searchViewletVisible && !inDebugMode && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
+    },
+    {
+        "key": "space e",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "explorerViewletVisible && !searchViewletVisible && !inDebugMode && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
+    },
+    {
+        "key": "j",
+        "command": "list.focusDown",
+        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+    },
+    {
+        "key": "k",
+        "command": "list.focusUp",
+        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "list.expand",
+        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+    },
+    {
+        "key": "shift+space l",
+        "command": "workbench.action.focusFirstEditorGroup",
+        "when": "explorerViewletVisible && explorerViewletFocus && !editorFocus && !inQuickOpen"
+    },
+    {
+        "key": "e",
+        "command": "workbench.files.action.focusOpenEditorsView",
+        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+    },
+    {
+        "key": "o",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+    },
+    {
+        "key": "ctrl+shift h",
+        "command": "workbench.view.explorer",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift l",
+        "command": "workbench.action.focusFirstEditorGroup",
+        "when": "filesExplorerFocus"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "sideBarFocus"
+    },
+]

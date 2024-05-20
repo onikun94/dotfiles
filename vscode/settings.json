@@ -1,0 +1,61 @@
+{
+    "workbench.colorTheme": "GitHub Dark Colorblind (Beta)",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorCustomizations": {
+        "editor.background": "#222433",
+        "editor.foreground": "#d4d4d4",
+        "editorCursor.foreground": "#dcdcdc",
+        "editor.lineHighlightBackground": "#333333",
+        "editorLineNumber.foreground": "#858585",
+        "activityBar.background": "#222433",
+        "sideBar.background": "#222433",
+        "statusBar.background": "#222433",
+        "tab.inactiveBackground": "#222433",
+        "editorGroupHeader.tabsBackground": "#222433"
+    },
+    "editor.codeActionsOnSave": {},
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "g",
+                "k"
+            ],
+            "commands": [
+                {
+                    "command": "editor.action.peekDefinition"
+                }
+            ]
+        },
+        {
+            "before": [
+                "ctrl",
+                "w",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.splitEditorDown"
+            ]
+        },
+        {
+            "before": [
+                "ctrl",
+                "w",
+                "v"
+            ],
+            "commands": [
+                "workbench.action.splitEditorRight"
+            ]
+        },
+        {
+            "before": [
+                "ctrl",
+                "w",
+                "c"
+            ],
+            "commands": [
+                "workbench.action.closeEditorsInGroup"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindings": []
+}
