@@ -32,8 +32,8 @@ alias cp='cp -i'
 #クリア
 alias cl='clear'
 #ls
-alias ll='ls -al'
-alias llt='ls -alt'
+alias ls='eza'
+alias ll='eza -l'
 #cat
 alias c='cat'
 #cd
