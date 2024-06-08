@@ -57,5 +57,14 @@
             ]
         }
     ],
-    "vim.normalModeKeyBindings": []
+    "vim.normalModeKeyBindings": [],
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "github.copilot.editor.enableAutoCompletions": true,
+    "github.copilot.enable": {
+      "*": true,
+      "plaintext": false,
+      "markdown": false,
+      "scminput": false
+    }
 }
