@@ -14,3 +14,6 @@ alias ll='eza -l'
 
 #zshrc
 alias zss='source ~/.zshrc'
+
+#grep高速化
+alias grep='rg'
