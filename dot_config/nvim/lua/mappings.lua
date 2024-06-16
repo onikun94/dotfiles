@@ -17,7 +17,7 @@ M.general = {
 M.lspsaga = {
   n = {
     ["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "peek_definition" },
-    ["gh"] = { "<cmd>Lspsaga lsp_finder<CR>", "lsp_finder" },
+    ["gh"] = { "<cmd>Lspsaga finder<CR>", "lsp_finder" },
     ["gr"] = { "<cmd>Lspsaga rename<CR>", "rename" },
     ["gd"] = { "<cmd>Lspsaga goto_definition<CR>", "goto_definition" },
     ["gk"] = { "<Cmd>Lspsaga hover_doc<CR>", "hober def" },
@@ -30,14 +30,10 @@ M.lspsaga = {
     ["<leader>o"] = { "<cmd>Lspsaga outline<CR>" }
   }
 }
+
 M.neotree = {
   n = {
-    -- toggle
-    ["<leader>e"] = {
-      function()
-        require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-      end
-    }
+    ["<space>e"] = { ":Neotree toggle<CR>", noremap = true, silent = true }
   }
 }
 
@@ -69,4 +65,9 @@ M.bufferline = {
   }
 }
 
+M.copilot = {
+  n = {
+    ["<leader>c"] = { "<Cmd> Copilot panel <CR>", "copilot panel" }
+  }
+}
 return M
