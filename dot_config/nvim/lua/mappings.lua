@@ -70,4 +70,10 @@ M.copilot = {
     ["<leader>c"] = { "<Cmd> Copilot panel <CR>", "copilot panel" }
   }
 }
+
+M.lazygit = {
+  n = {
+    ["<leader>lg"] = { "<Cmd> LazyGit <CR>", "LazyGit" }
+  }
+}
 return M
