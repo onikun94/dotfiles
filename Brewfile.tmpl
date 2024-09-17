@@ -1,0 +1,67 @@
+tap "dwarvesf/tap"
+tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
+tap "homebrew/services"
+tap "wez/wezterm"
+# GitHub Actionsワークフローファイルの静的チェッカー
+brew "actionlint"
+# **envのオールインワンツール
+brew "anyenv"
+# 公式Amazon AWSコマンドラインインターフェース
+brew "awscli"
+# 複数の異なるマシン間でdotfilesを安全に管理
+brew "chezmoi"
+# JavaScriptとTypeScriptのためのセキュアなランタイム
+brew "deno"
+# モダンで保守されているlsの代替
+brew "eza"
+# シンプル、高速、ユーザーフレンドリーなfindの代替
+brew "fd"
+# PKCS#11モジュールを読み込み、列挙するライブラリ
+brew "p11-kit"
+# 検証、再帰的、キャッシュするDNSリゾルバ
+brew "unbound"
+# GNU Transport Layer Security (TLS) ライブラリ
+brew "gnutls"
+# ASS/SSA字幕フォーマットのための字幕レンダラー
+brew "libass"
+# VLCなどのメディアプレーヤー用のBlu-Rayディスク再生ライブラリ
+brew "libbluray"
+# セキュアで信頼性の高いトランスポート
+brew "srt"
+# オーディオとビデオの再生、録音、変換、ストリーミング
+brew "ffmpeg"
+# GNUコンパイラコレクション
+brew "gcc"
+# GitHubコマンドラインツール
+brew "gh"
+# PostScriptとPDFのインタープリター
+brew "ghostscript"
+# GIF画像/アニメーションの作成/編集ツール
+brew "gifsicle"
+# gitとdiff出力のための構文ハイライトページャー
+brew "git-delta"
+# シンプル/信頼性/効率的なソフトウェアを構築するためのオープンソースプログラミング言語
+brew "go"
+# 軽量で柔軟なコマンドラインJSONプロセッサ
+brew "jq"
+# 拡張性と俊敏性に焦点を当てた野心的なVimフォーク
+brew "neovim"
+# 複数のNode.jsバージョンを管理
+brew "nvm"
+# grepやThe Silver Searcherのような検索ツール
+brew "ripgrep"
+# rbenvにインスピレーションを受けたTerraformバージョンマネージャー
+brew "tfenv"
+# 多数のグリフを持つ開発者向けフォント
+cask "font-hack-nerd-font"
+
+{{ if .personal }}
+# Personal packages
+# Google Cloud上でホストされるリソースとアプリケーションを管理するためのツールセット
+cask "google-cloud-sdk"
+{{ else }}
+# Work packages
+# $PWDに基づいて環境変数を読み込み/アンロード
+brew "direnv"
+{{ end }}
