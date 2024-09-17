@@ -2,6 +2,8 @@
 alias cdd='cd ~/Documents'
 #home
 alias cdh='cd ~'
+#cd previous
+alias ..='cd ..'
 #フォルダ作成
 alias m='mkdir'
 #削除(ファイル)
@@ -17,3 +19,7 @@ alias zss='source ~/.zshrc'
 
 #grep高速化
 alias grep='rg'
+
+#diff to delta
+alias diff='delta'
+

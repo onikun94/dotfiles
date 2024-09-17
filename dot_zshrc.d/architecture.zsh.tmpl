@@ -1,0 +1,13 @@
+{{ if eq .chezmoi.arch "arm64" }}
+alias x64='exec arch -arch x86_64 "$SHELL"'
+{{ else if eq .chezmoi.arch "amd64" }}
+alias a64='exec arch -arch arm64e "$SHELL"'
+{{ end }}
+
+switch-arch() {
+  if [[ "$(uname -m)" == arm64 ]]; then
+    exec arch -arch x86_64 "$SHELL"
+  elif [[ "$(uname -m)" == x86_64 ]]; then
+    exec arch -arch arm64e "$SHELL"
+  fi
+}
