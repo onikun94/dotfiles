@@ -1,4 +1,4 @@
-require('config/display')
+require('config.display').setup()
 
 local signs = { Error = "󰅚", Warn = "", Hint = "󰌶", Info = "" }
 for type, icon in pairs(signs) do
