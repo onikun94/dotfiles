@@ -79,6 +79,10 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-emoji',
       'hrsh7th/cmp-buffer',
+      {
+        "zbirenbaum/copilot-cmp",
+        config = true
+      },
     },
     config = function()
       require('config/cmp')
@@ -120,9 +124,6 @@ return {
   {
     "L3MON4D3/LuaSnip",
     dependencies = { "rafamadriz/friendly-snippets" },
-    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-    -- install jsregexp (optional!).
-    build = "make install_jsregexp"
   },
   {
     "benfowler/telescope-luasnip.nvim",
@@ -137,9 +138,7 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     event = "VimEnter",
     cmd = "Neotree",
-    init = function() vim.g.neo_tree_remove_legacy_commands = true end,
-    branch = "v2.x",
-    --cmd = { "NeoTree" },
+    branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -148,27 +147,12 @@ return {
     config = function()
       require('config/neo-tree')
     end
-    --event = "VimEnter",
   },
-
-  --{
-  --  "glepnir/lspsaga.nvim",
-  --  event = "LspAttach",
-  --  config = function()
-  --    require("config/lspsaga")
-  --  end,
-  --  dependencies = {
-  --    { "nvim-tree/nvim-web-devicons" },
-  --    --Please make sure you install markdown and markdown_inline parser
-  --    { "nvim-treesitter/nvim-treesitter" }
-  --  }
-  --},
-
 
   {
     'nvimdev/lspsaga.nvim',
     config = function()
-      --    require('lspsaga').setup({})
+      --require('lspsaga').setup({})
       require("config/lspsaga")
     end,
     dependencies = {
@@ -199,5 +183,36 @@ return {
       require("git").setup()
     end,
   },
-
+  {
+    "nvimtools/none-ls.nvim",
+    config = function()
+      require("config/none-ls")
+    end
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup()
+      end, 100)
+    end,
+  },
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    }
+  },
+  {
+    "tpope/vim-surround",
+  },
 }
