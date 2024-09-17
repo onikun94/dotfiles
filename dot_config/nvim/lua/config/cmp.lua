@@ -19,6 +19,7 @@ cmp.setup({
     }),
   }),
   sources = cmp.config.sources({
+    { name = "copilot", priority = 90 },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer' },
@@ -34,6 +35,7 @@ cmp.setup({
         buffer = "[Buffer]",
         nvim_lsp = "[LSP]",
         cmp_tabnine = "[TabNine]",
+        copilot = "[Copilot]",
         luasnip = "[LuaSnip]",
         nvim_lua = "[NeovimLua]",
         latex_symbols = "[LaTeX]",
