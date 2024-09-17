@@ -6,4 +6,7 @@ require("lspsaga").setup({
     sign_priority = 40,
     virtual_text = false,
   },
+  ui = {
+    code_action = " ",
+  }
 })
