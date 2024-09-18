@@ -1,39 +1,32 @@
 [
-    {
-        "key": "j",
-        "command": "list.focusDown",
-        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
-    },
-    {
-        "key": "k",
-        "command": "list.focusUp",
-        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
-    },
-    {
-        "key": "enter",
-        "command": "list.expand",
-        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
-    },
-    {
-        "key": "e",
-        "command": "workbench.files.action.focusOpenEditorsView",
-        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
-    },
-    {
-        "key": "o",
-        "command": "workbench.action.focusActiveEditorGroup",
-        "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
-    },
-    {
-        "key": "ctrl+w g",
-        "command": "workbench.action.chat.openInSidebar"
-    },
-    {
-        "key": "shift+cmd+e",
-        "command": "workbench.action.toggleSidebarVisibility"
-    },
-    {
-        "key": "cmd+b",
-        "command": "-workbench.action.toggleSidebarVisibility"
-    },
+	{
+		"key": "ctrl+f",
+		"command": "workbench.action.focusActiveEditorGroup",
+		"when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+	},
+	{
+		"key": "escape",
+		"command": "workbench.action.focusActiveEditorGroup",
+		"when": "filesExplorerFocus && filesExplorerInputFocus"
+	},
+	{
+		"key": "escape",
+		"command": "workbench.action.focusActiveEditorGroup",
+		"when": "searchViewletFocus && searchInputBoxFocus"
+	},
+	{
+		"key": "enter",
+		"command": "list.focusDown",
+		"when": "searchInputBoxFocus"
+	},
+	{
+		"key": "ctrl+f",
+		"command": "workbench.action.focusActiveEditorGroup",
+		"when": "searchViewletFocus && !inputFocus"
+	},
+	{
+		"key": "ctrl+f",
+		"command": "search.action.focusSearchFromResults",
+		"when": "searchViewletFocus && !inputFocus"
+	}
 ]
