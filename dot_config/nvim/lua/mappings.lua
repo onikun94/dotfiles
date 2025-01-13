@@ -17,7 +17,7 @@ if vim.g.vscode then
       ["<leader>e"] = { "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>", "toggle sidebar" },
       ["<leader>fe"] = { "<Cmd>call VSCodeNotify('workbench.view.explorer')<CR>", "focus explorer" },
     }
-  }
+}
 else
   -- 既存の設定をそのまま使用
   M.general = {
