@@ -1,0 +1,54 @@
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$python\
+$nodejs\
+$rust\
+$golang\
+$character"""
+
+[directory]
+style = "bold #F28B09"
+truncation_length = 3
+truncate_to_repo = true
+
+[character]
+success_symbol = "[❯](bold #64FF1A)"
+error_symbol = "[!](bold #FF0000)"
+vimcmd_symbol = "[❮](bold #68FBFF)"
+
+[git_branch]
+format = "[$branch]($style) "
+style = "#7A11FF"
+
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[cmd_duration]
+min_time = 500
+format = "[$duration]($style) "
+style = "#FAFE71"
+
+[python]
+format = "[$virtualenv]($style) "
+style = "bright-black"
+
+[nodejs]
+format = "[$symbol$version]($style) "
+style = "bright-black"
+
+[rust]
+format = "[$version]($style) "
+style = "bright-black"
+
+[golang]
+format = "[$version]($style) "
+style = "bright-black" 
