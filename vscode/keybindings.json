@@ -16,7 +16,7 @@
 	},
 	{
 		"key": "enter",
-		"command": "list.focusDown",
+		"command": "list.select",
 		"when": "searchInputBoxFocus"
 	},
 	{

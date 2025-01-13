@@ -1,48 +1,116 @@
 {
-	"workbench.colorTheme": "GitHub Dark Colorblind (Beta)",
-	"workbench.iconTheme": "material-icon-theme",
-	"workbench.colorCustomizations": {
-		"editor.background": "#222433",
-		"editor.foreground": "#d4d4d4",
-		"editorCursor.foreground": "#dcdcdc",
-		"editor.lineHighlightBackground": "#333333",
-		"editorLineNumber.foreground": "#858585",
-		"activityBar.background": "#222433",
-		"sideBar.background": "#222433",
-		"statusBar.background": "#222433",
-		"tab.inactiveBackground": "#222433",
-		"editorGroupHeader.tabsBackground": "#222433"
-	},
-	"editor.codeActionsOnSave": {},
-	"vim.useSystemClipboard": true,
-	"editor.detectIndentation": false,
-	"editor.tabSize": 2,
-	"github.copilot.editor.enableAutoCompletions": true,
-	"github.copilot.enable": {
-		"*": true,
-		"plaintext": false,
-		"markdown": false,
-		"scminput": false
-	},
-	"[json]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
-	"typescript.updateImportsOnFileMove.enabled": "always",
-	"explorer.confirmDragAndDrop": false,
-	"gitlens.launchpad.indicator.enabled": false,
-	"yaml.format.singleQuote": true,
-	"editor.defaultFormatter": "biomejs.biome",
-	"editor.formatOnSave": true,
-	"editor.accessibilitySupport": "off",
-	"cursor.cpp.enablePartialAccepts": true,
-	"extensions.experimental.affinity": {
-		"asvetliakov.vscode-neovim": 1
-	},
-	"vim.handleKeys": {
-		"<C-w>": true
-	},
-	"vscode-neovim.useCtrlKeysForNormalMode": true,
-	"vscode-neovim.useCtrlKeysForInsertMode": true,
-	"vim.useCtrlKeys": true,
-	"json.schemas": []
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc.js",
+  "workbench.colorTheme": "Ayu Mirage Zed",
+  "workbench.iconTheme": "ayu-mirage-zed",
+  "workbench.colorCustomizations": {
+    "editor.background": "#222433",
+    "editor.foreground": "#d4d4d4",
+    "editorCursor.foreground": "#dcdcdc",
+    "editor.lineHighlightBackground": "#333333",
+    "editorLineNumber.foreground": "#858585",
+    "activityBar.background": "#222433",
+    "sideBar.background": "#222433",
+    "statusBar.background": "#222433",
+    "tab.inactiveBackground": "#222433",
+    "editorGroupHeader.tabsBackground": "#222433"
+  },
+  "editor.codeActionsOnSave": {},
+  "vim.useSystemClipboard": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "explorer.confirmDragAndDrop": false,
+  "gitlens.launchpad.indicator.enabled": false,
+  "yaml.format.singleQuote": true,
+  "editor.accessibilitySupport": "off",
+  "cursor.cpp.enablePartialAccepts": true,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "json.schemas": [],
+  "biome.enabled": false,
+  "makefile.configureOnOpen": true,
+  "find-it-faster.general.useTerminalInEditor": false,
+  "apc.electron": {
+    "titleBarStyle": "hiddenInset",
+    "trafficLightPosition": {
+      "x": 7,
+      "y": 5
+    }
+  },
+  "editor.fontFamily": "'Zed Mono', 'Courier New', monospace",
+  "apc.font.family": "Zed Sans",
+  "apc.stylesheet": {
+    ".quick-input-widget": {
+      "position": "absolute !important",
+      "top": "200px !important",
+      "left": "50%",
+      "border-radius": "10px",
+      "border": "1px solid var(--vscode-textSeparator-foreground) !important",
+      "box-shadow": "0 0 60px 0 rgba(0,0,0,0.2) !important"
+    },
+    // left title bar (controls)
+    ".titlebar-left": {
+      "max-width": "70px !important"
+    },
+    // center title bar
+    ".titlebar-center": {
+      "margin": "0 !important"
+    },
+    // arrow buttons
+    ".action-item.menu-entry": {
+      "display": "none !important"
+    },
+    // whole title bar command center container
+    ".action-item.command-center-center": {
+      "background-color": "transparent !important",
+      "border": "none !important",
+      "width": "fit-content !important"
+    },
+    // field
+    ".quick-input-header": {
+      "padding": "0 !important"
+    },
+    // input element container
+    ".quick-input-header > .quick-input-and-message .monaco-inputbox": {
+      "border-radius": "10px 10px 0 0 !important"
+    },
+    // actual input element
+    ".quick-input-header > .quick-input-and-message > .quick-input-filter > .quick-input-box input": {
+      "padding": "8px 10px !important"
+    },
+    // list of results
+    ".quick-input-list > .monaco-list > .monaco-scrollable-element": {
+      "padding": "2px !important"
+    },
+    // status bar set height
+    "div:has(> .statusbar)": {
+      "height": "25px !important",
+      "top": "auto !important",
+      "bottom": "0 !important"
+    },
+    ".statusbar": {
+      "height": "25px !important"
+    },
+    // hides search icon
+    ".codicon.codicon-search.search-icon": {
+      "display": "none !important"
+    },
+    // empty editor background
+    ".editor-group-container.empty.active": {
+      "background-color": "var(--vscode-statusBar-background)"
+    },
+    "div:has(> .tabs-and-actions-container.tabs-border-bottom.empty)": {
+      "background-color": "var(--vscode-statusBar-background) !important"
+    }
+  }
 }
