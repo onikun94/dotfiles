@@ -13,11 +13,11 @@ if vim.g.vscode then
       ["<leader>s"] = { "<Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>", "split editor down" },
       ["<C-w>v"] = { "<Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>", "split editor right" },
       ["<C-w>c"] = { "<Cmd>call VSCodeNotify('workbench.action.closeEditorsInGroup')<CR>", "close editors in group" },
-      ["<leader>fw"] = { "<Cmd>call VSCodeNotify('workbench.action.findInFiles')<CR>", "find in files" },
+      ["<leader>fw"] = { "<Cmd>call VSCodeNotify('find-it-faster.findWithinFiles')<CR>", "find in files" },
       ["<leader>e"] = { "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>", "toggle sidebar" },
       ["<leader>fe"] = { "<Cmd>call VSCodeNotify('workbench.view.explorer')<CR>", "focus explorer" },
     }
-}
+  }
 else
   -- 既存の設定をそのまま使用
   M.general = {
