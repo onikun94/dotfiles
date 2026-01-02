@@ -4,6 +4,14 @@ return {
     lazy = false,
   },
   {
+    "goolord/alpha-nvim",
+    event = "VimEnter",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("config.alpha")
+    end,
+  },
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -36,33 +44,29 @@ return {
   },
   -- lsp stuff
   {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-    opts = function()
-      require('config/mason')
-    end,
-
-    config = function(_, opts)
-      require("mason").setup(opts)
-      -- custom nvchad cmd to install all mason binaries listed
-      vim.api.nvim_create_user_command("MasonInstallAll", function()
-        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
-      end, {})
+    "mason-org/mason.nvim",
+    lazy = false,
+    config = function()
+      require("mason").setup()
     end,
   },
   {
     "neovim/nvim-lspconfig",
-    config = function()
-      require('config/lspconfig')
-    end,
+    lazy = false,
   },
   {
-    "williamboman/mason-lspconfig.nvim",
-    event = "BufReadPre",
+    "mason-org/mason-lspconfig.nvim",
+    lazy = false,
+    dependencies = { 
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
     config = function()
-      require('config/mason-lspconfig')
-    end
+      require("mason-lspconfig").setup({
+        ensure_installed = { "ts_ls", "lua_ls", "tailwindcss", "astro" },
+      })
+      require('config/lspconfig')
+    end,
   },
   {
     "onsails/lspkind.nvim",

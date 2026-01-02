@@ -1,13 +1,20 @@
 require('config.display').setup()
 
-local signs = { Error = "󰅚", Warn = "", Hint = "󰌶", Info = "" }
+local signs = { Error = "󰅚", Warn = "", Hint = "󰌶", Info = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  end,
+})
+
 local lspconfig = require('lspconfig')
-local protocol = require('vim.lsp.protocol')
 
 local on_attach = function(client, bufnr)
   -- format on save
@@ -19,7 +26,9 @@ local on_attach = function(client, bufnr)
     })
   end
 end
-lspconfig.typescript.setup {
+
+-- Setup each server manually
+lspconfig.ts_ls.setup {
   on_attach = on_attach,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" }
@@ -31,6 +40,13 @@ lspconfig.tailwindcss.setup {
 
 lspconfig.lua_ls.setup {
   on_attach = on_attach,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  }
 }
 
 lspconfig.astro.setup {
