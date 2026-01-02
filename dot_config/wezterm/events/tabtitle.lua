@@ -4,14 +4,11 @@ local wezterm = require("wezterm")
 
 -- Inspired by https://github.com/wez/wezterm/discussions/628#discussioncomment-1874614
 
-local GLYPH_SEMI_CIRCLE_LEFT = ""
--- local GLYPH_SEMI_CIRCLE_LEFT = utf8.char(0xe0b6)
-local GLYPH_SEMI_CIRCLE_RIGHT = ""
--- local GLYPH_SEMI_CIRCLE_RIGHT = utf8.char(0xe0b4)
-local GLYPH_CIRCLE = ""
--- local GLYPH_CIRCLE = utf8.char(0xf111)
-local GLYPH_ADMIN = "ﱾ"
--- local GLYPH_ADMIN = utf8.char(0xfc7e)
+local GLYPH_SEMI_CIRCLE_LEFT = ""
+local GLYPH_SEMI_CIRCLE_RIGHT = ""
+local GLYPH_CIRCLE = "●"
+local GLYPH_ADMIN = "󰈸"
+local GLYPH_PROCESS = "󰏘"
 
 local M = {}
 
@@ -19,39 +16,74 @@ M.cells = {}
 
 M.colors = {
   default = {
-    bg = "#45475a",
-    fg = "#1c1b19",
+    bg = "#313244",
+    fg = "#cdd6f4",
   },
   is_active = {
-    bg = "#7FB4CA",
+    bg = "#89b4fa",
     fg = "#11111b",
   },
 
   hover = {
-    bg = "#587d8c",
-    fg = "#1c1b19",
+    bg = "#74c7ec",
+    fg = "#11111b",
   },
 }
 
 M.set_process_name = function(s)
-  local a = string.gsub(s, "(.*[/\\])(.*)", "%2")
-  return a:gsub("%.exe$", "")
+  local process = string.gsub(s, "(.*[/\\])(.*)", "%2")
+  process = process:gsub("%.exe$", "")
+  
+  -- プロセス名に応じたアイコンを返す
+  local process_icons = {
+    ["node"] = "󰎙 ",
+    ["python"] = " ",
+    ["vim"] = " ",
+    ["nvim"] = " ",
+    ["zsh"] = " ",
+    ["cargo"] = "󱘗 ",
+    ["lua"] = "💎 ",
+    ["docker"] = "󰡨 ",
+    ["git"] = "󰊢 ",
+  }
+  
+  return process, process_icons[process:lower()] or GLYPH_PROCESS
+end
+
+M.get_current_dir = function(base_title)
+  -- WezTermのAPIを使用してカレントディレクトリを取得
+  local cwd = base_title
+  
+  -- パスからディレクトリ名を抽出
+  local dir_name = cwd:match("[^/\\]*$")
+  if not dir_name or dir_name == "" then
+    dir_name = cwd
+  end
+  
+  -- ホームディレクトリのパスを取得
+  local home = os.getenv("HOME")
+  if home then
+    -- ホームディレクトリパスを "~" に置換
+    dir_name = dir_name:gsub("^" .. home:gsub("[-%.%+%[%]%(%)%$%^%%%?%*]", "%%%0") .. "/", "~/")
+  end
+  
+  return dir_name
 end
 
 M.set_title = function(process_name, base_title, max_width, inset)
   local title
   inset = inset or 6
+  
+  local process, icon = M.set_process_name(process_name)
+  local dir = M.get_current_dir(base_title)
 
-  if process_name:len() > 0 then
-    title = process_name .. " ~ " .. base_title
+  if process:len() > 0 then
+    -- プロセス名とディレクトリ名を組み合わせる
+    title = icon .. " " .. (dir or "")
   else
-    title = base_title
+    title = dir or ""
   end
 
-  --[[ if title:len() > max_width - inset then
-    local diff = title:len() - max_width + inset
-    title = wezterm.truncate_right(title, title:len() - diff)
-  end ]]
   return title
 end
 
@@ -79,9 +111,11 @@ M.setup = function()
 
     local bg
     local fg
+    -- カレントディレクトリを取得
+    local cwd = tab.active_pane.current_working_dir
     local process_name = M.set_process_name(tab.active_pane.foreground_process_name)
     local is_admin = M.check_if_admin(tab.active_pane.title)
-    local title = M.set_title(process_name, tab.active_pane.title, max_width, (is_admin and 8))
+    local title = M.set_title(process_name, cwd and cwd.file_path or tab.active_pane.title, max_width, (is_admin and 8))
 
     if tab.is_active then
       bg = M.colors.is_active.bg
@@ -105,21 +139,24 @@ M.setup = function()
     -- Left semi-circle
     M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_LEFT)
 
+    -- Left padding
+    M.push(bg, fg, { Intensity = "Bold" }, "   ")
+
     -- Admin Icon
     if is_admin then
-      M.push(bg, fg, { Intensity = "Bold" }, " " .. GLYPH_ADMIN)
+      M.push(bg, "#f38ba8", { Intensity = "Bold" }, " " .. GLYPH_ADMIN)
     end
 
     -- Title
-    M.push(bg, fg, { Intensity = "Bold" }, " " .. title)
+    M.push(bg, fg, { Intensity = "Bold" }, " " .. title .. " ")
 
     -- Unseen output alert
     if has_unseen_output then
-      M.push(bg, "#FFA066", { Intensity = "Bold" }, " " .. GLYPH_CIRCLE)
+      M.push(bg, "#fab387", { Intensity = "Bold" }, " " .. GLYPH_CIRCLE)
     end
 
     -- Right padding
-    M.push(bg, fg, { Intensity = "Bold" }, " ")
+    M.push(bg, fg, { Intensity = "Bold" }, "   ")
 
     -- Right semi-circle
     M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_RIGHT)
@@ -129,27 +166,3 @@ M.setup = function()
 end
 
 return M
-
--- local CMD_ICON = utf8.char(0xe62a)
--- local NU_ICON = utf8.char(0xe7a8)
--- local PS_ICON = utf8.char(0xe70f)
--- local ELV_ICON = utf8.char(0xfc6f)
--- local WSL_ICON = utf8.char(0xf83c)
--- local YORI_ICON = utf8.char(0xf1d4)
--- local NYA_ICON = utf8.char(0xf61a)
---
--- local VIM_ICON = utf8.char(0xe62b)
--- local PAGER_ICON = utf8.char(0xf718)
--- local FUZZY_ICON = utf8.char(0xf0b0)
--- local HOURGLASS_ICON = utf8.char(0xf252)
--- local SUNGLASS_ICON = utf8.char(0xf9df)
---
--- local PYTHON_ICON = utf8.char(0xf820)
--- local NODE_ICON = utf8.char(0xe74e)
--- local DENO_ICON = utf8.char(0xe628)
--- local LAMBDA_ICON = utf8.char(0xfb26)
---
--- local SOLID_LEFT_ARROW = utf8.char(0xe0ba)
--- local SOLID_LEFT_MOST = utf8.char(0x2588)
--- local SOLID_RIGHT_ARROW = utf8.char(0xe0bc)
--- local ADMIN_ICON = utf8.char(0xf49c)
