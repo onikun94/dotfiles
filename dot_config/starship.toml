@@ -1,11 +1,12 @@
 format = """
-$username\
-$hostname\
 $directory\
 $git_branch\
 $git_state\
 $git_status\
 $cmd_duration\
+$time\
+$battery\
+$docker_context\
 $line_break\
 $python\
 $nodejs\
@@ -13,15 +14,12 @@ $rust\
 $golang\
 $character"""
 
+
 [directory]
 style = "bold #F28B09"
 truncation_length = 3
 truncate_to_repo = true
 
-[character]
-success_symbol = "[❯](bold #64FF1A)"
-error_symbol = "[!](bold #FF0000)"
-vimcmd_symbol = "[❮](bold #68FBFF)"
 
 [git_branch]
 format = "[$branch]($style) "
@@ -37,18 +35,48 @@ min_time = 500
 format = "[$duration]($style) "
 style = "#FAFE71"
 
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💀 '
+
+[[battery.display]] 
+threshold = 10
+style = 'bold red'
+discharging_symbol = '🚨'
+
+[[battery.display]] 
+threshold = 30
+style = 'bold yellow'
+discharging_symbol = '💦 '
+
+[docker_context]
+symbol = "🐋"
+format = "via [$symbol$context]($style) "
+style = "blue bold"
+disabled = false 
+
 [python]
 format = "[$virtualenv]($style) "
+symbol = "🐍"
 style = "bright-black"
 
 [nodejs]
 format = "[$symbol$version]($style) "
+symbol = "📦"
 style = "bright-black"
 
 [rust]
 format = "[$version]($style) "
+symbol = "🦀"
 style = "bright-black"
 
 [golang]
 format = "[$version]($style) "
-style = "bright-black" 
+symbol = "🐹"
+style = "bright-black"
+
+[character]
+success_symbol = "[❯](bold #64FF1A)"
+error_symbol = "[!](bold #FF0000)"
+vimcmd_symbol = "[❮](bold #68FBFF)"
