@@ -1,0 +1,3 @@
+# Local settings (machine-specific, not synced)
+.zshrc.local
+.zshrc.d/alias.local.zsh
