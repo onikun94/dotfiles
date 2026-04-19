@@ -15,8 +15,11 @@ export PATH=$PATH:$HOME/go/bin
 # MySQL
 export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
 
-# tmux pbw
-source ~/.config/tmux/president-boss-workers/pbw-aliases.zsh
-
 # nodebrew (disabled)
 # export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# browser-use
+#export PATH="$HOME/.browser-use/bin:$HOME/.browser-use-env/bin:$PATH"
+
+# meet-transcribe
+export PATH="$HOME/bin:$PATH"

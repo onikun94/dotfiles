@@ -36,4 +36,10 @@ alias ccs='claude --dangerously-skip-permissions'
 alias tmux-panes="tmux split-window -h \\; split-window -v \\; select-pane -t 0 \\; split-window -v \\; select-pane -t 2 \\; split-window -v \\; select-pane -t 4 \\; split-window -v \\; select-pane -t 0"
 alias tmux-list="tmux list-panes -F \"#{pane_index}: #{pane_id} #{pane_current_command} #{pane_active}\""
 
+# obsidian-clip
+alias obs='obsidian'
+
+# colima start
+alias colimas='colima start --cpu 2 --memory 4'
+
 # Local aliases (machine-specific) are in ~/.zshrc.d/alias.local.zsh
