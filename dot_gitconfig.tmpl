@@ -1,0 +1,41 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+[rebase]
+	autostash = true
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[interactive]
+    diffFilter = delta --color-only
+[core]
+	editor = vim
+	statustree = false
+[status]
+	showUntrackedFiles = all
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[alias]
+	branch-l = for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:short)'
