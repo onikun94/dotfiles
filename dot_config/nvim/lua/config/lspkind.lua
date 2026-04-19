@@ -1,45 +1,31 @@
 require("lspkind").init({
-  -- enables text annotations
-  --
-  -- default: true
   mode = "symbol_text",
-
-  -- default symbol map
-  -- can be either 'default' (requires nerd-fonts font) or
-  -- 'codicons' for codicon preset (requires vscode-codicons font)
-  --
-  -- default: 'default'
   preset = "codicons",
-
-  -- override preset symbols
-  --
-  -- default: {}
   symbol_map = {
     Text = "󰉿",
     Method = "󰆧",
     Function = "󰊕",
-    Constructor = "",
+    Constructor = "",
     Field = "󰜢",
-    Variable = "",
+    Variable = "",
     Class = "󰠱",
-    Interface = "",
-    Module = "",
+    Interface = "",
+    Module = "",
     Property = "󰮚",
     Unit = "󰑭",
     Value = "󰎠",
-    Enum = "",
+    Enum = "",
     Keyword = "󰌋",
-    Snippet = "",
+    Snippet = "",
     Color = "󰏘",
     File = "󰈙",
     Reference = "󰈇",
     Folder = "󰉋",
-    EnumMember = "",
+    EnumMember = "",
     Constant = "󰏿",
     Struct = "󰙅",
-    Event = "",
+    Event = "",
     Operator = "󰆕",
     TypeParameter = "",
-    Copilot = "",
   },
 })
