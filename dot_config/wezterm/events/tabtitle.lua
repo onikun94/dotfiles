@@ -1,167 +1,124 @@
--- thank https://github.com/KevinSilvester/wezterm-config/blob/master/events/tab-title.lua
+-- Inspired by https://github.com/KevinSilvester/wezterm-config/blob/master/events/tab-title.lua
+-- https://github.com/wez/wezterm/discussions/628#discussioncomment-1874614
 local wezterm = require("wezterm")
-
-
--- Inspired by https://github.com/wez/wezterm/discussions/628#discussioncomment-1874614
 
 local GLYPH_SEMI_CIRCLE_LEFT = ""
 local GLYPH_SEMI_CIRCLE_RIGHT = ""
-local GLYPH_CIRCLE = "●"
 local GLYPH_ADMIN = "󰈸"
 local GLYPH_PROCESS = "󰏘"
+local GLYPH_ZOOM = "󰍉"
+
+local TAB_PAD = "    "  -- タブ左右の余白 (4スペース)
+local MIN_TITLE_WIDTH = 28  -- タイトルが短くてもこの幅分までパディング
+
+local PROCESS_ICONS = {
+  node = "󰎙 ",
+  python = "",
+  vim = "",
+  nvim = "",
+  zsh = "",
+  cargo = "󱘗 ",
+  lua = "💎 ",
+  docker = "󰡨 ",
+  git = "󰊢 ",
+  claude = "󱚝 ",
+}
+
+local COLORS = {
+  default          = { bg = "#313244", fg = "#cdd6f4" },
+  is_active        = { bg = "#89b4fa", fg = "#11111b" },
+  hover            = { bg = "#74c7ec", fg = "#11111b" },
+  bell             = { bg = "#fab387", fg = "#11111b" }, -- Claude Code の入力待ちタブを強調
+  claude           = { bg = "#7c3aed", fg = "#f5f5ff" }, -- Claude Code 実行中の紫
+  claude_is_active = { bg = "#a78bfa", fg = "#11111b" }, -- Claude Code 実行中でアクティブ
+}
 
 local M = {}
 
-M.cells = {}
-
-M.colors = {
-  default = {
-    bg = "#313244",
-    fg = "#cdd6f4",
-  },
-  is_active = {
-    bg = "#89b4fa",
-    fg = "#11111b",
-  },
-
-  hover = {
-    bg = "#74c7ec",
-    fg = "#11111b",
-  },
-}
-
-M.set_process_name = function(s)
-  local process = string.gsub(s, "(.*[/\\])(.*)", "%2")
-  process = process:gsub("%.exe$", "")
-  
-  -- プロセス名に応じたアイコンを返す
-  local process_icons = {
-    ["node"] = "󰎙 ",
-    ["python"] = " ",
-    ["vim"] = " ",
-    ["nvim"] = " ",
-    ["zsh"] = " ",
-    ["cargo"] = "󱘗 ",
-    ["lua"] = "💎 ",
-    ["docker"] = "󰡨 ",
-    ["git"] = "󰊢 ",
-  }
-  
-  return process, process_icons[process:lower()] or GLYPH_PROCESS
+local function parse_process(raw)
+  local process = (raw or ""):gsub("(.*[/\\])(.*)", "%2"):gsub("%.exe$", "")
+  local icon = PROCESS_ICONS[process:lower()] or GLYPH_PROCESS
+  return process, icon
 end
 
-M.get_current_dir = function(base_title)
-  -- WezTermのAPIを使用してカレントディレクトリを取得
-  local cwd = base_title
-  
-  -- パスからディレクトリ名を抽出
-  local dir_name = cwd:match("[^/\\]*$")
-  if not dir_name or dir_name == "" then
-    dir_name = cwd
+local function dir_basename(path)
+  if not path or path == "" then return "" end
+  local trimmed = path:gsub("[/\\]+$", "")
+  return trimmed:match("[^/\\]+$") or trimmed
+end
+
+local function is_admin(title)
+  return title and title:match("^Administrator: ") ~= nil
+end
+
+local function push(cells, bg, fg, text)
+  table.insert(cells, { Background = { Color = bg } })
+  table.insert(cells, { Foreground = { Color = fg } })
+  table.insert(cells, { Attribute = { Intensity = "Bold" } })
+  table.insert(cells, { Text = text })
+end
+
+local function is_claude(pane)
+  local proc = (pane.foreground_process_name or ""):lower()
+  local title = (pane.title or ""):lower()
+  return proc:match("claude") ~= nil or title:match("claude") ~= nil
+end
+
+local function pick_colors(tab, hover, has_bell, claude)
+  if has_bell then return COLORS.bell end
+  if tab.is_active then
+    return claude and COLORS.claude_is_active or COLORS.is_active
   end
-  
-  -- ホームディレクトリのパスを取得
-  local home = os.getenv("HOME")
-  if home then
-    -- ホームディレクトリパスを "~" に置換
-    dir_name = dir_name:gsub("^" .. home:gsub("[-%.%+%[%]%(%)%$%^%%%?%*]", "%%%0") .. "/", "~/")
-  end
-  
-  return dir_name
+  if hover then return COLORS.hover end
+  if claude then return COLORS.claude end
+  return COLORS.default
 end
 
-M.set_title = function(process_name, base_title, max_width, inset)
-  local title
-  inset = inset or 6
-  
-  local process, icon = M.set_process_name(process_name)
-  local dir = M.get_current_dir(base_title)
-
-  if process:len() > 0 then
-    -- プロセス名とディレクトリ名を組み合わせる
-    title = icon .. " " .. (dir or "")
-  else
-    title = dir or ""
-  end
-
-  return title
-end
-
-M.check_if_admin = function(p)
-  if p:match("^Administrator: ") then
-    return true
-  end
-  return false
-end
-
----@param fg string
----@param bg string
----@param attribute table
----@param text string
-M.push = function(bg, fg, attribute, text)
-  table.insert(M.cells, { Background = { Color = bg } })
-  table.insert(M.cells, { Foreground = { Color = fg } })
-  table.insert(M.cells, { Attribute = attribute })
-  table.insert(M.cells, { Text = text })
-end
+-- Claude Code などが bell (\a) を送ると該当タブに通知マーカーを立てる
+M.bell_tabs = {}
 
 M.setup = function()
-  wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-    M.cells = {}
+  wezterm.on("bell", function(_window, pane)
+    local tab = pane:tab()
+    if tab then
+      M.bell_tabs[tab:tab_id()] = true
+    end
+  end)
 
-    local bg
-    local fg
-    -- カレントディレクトリを取得
-    local cwd = tab.active_pane.current_working_dir
-    local process_name = M.set_process_name(tab.active_pane.foreground_process_name)
-    local is_admin = M.check_if_admin(tab.active_pane.title)
-    local title = M.set_title(process_name, cwd and cwd.file_path or tab.active_pane.title, max_width, (is_admin and 8))
+  wezterm.on("format-tab-title", function(tab, _tabs, _panes, _config, hover, _max_width)
+    local pane = tab.active_pane
+    local _, icon = parse_process(pane.foreground_process_name)
+    local dir = dir_basename(pane.current_working_dir and pane.current_working_dir.file_path or pane.title)
+    local title = icon .. " " .. dir
+    -- 最小幅に満たない場合は右側をスペースでパディング
+    local title_width = wezterm.column_width(title)
+    if title_width < MIN_TITLE_WIDTH then
+      title = title .. string.rep(" ", MIN_TITLE_WIDTH - title_width)
+    end
 
     if tab.is_active then
-      bg = M.colors.is_active.bg
-      fg = M.colors.is_active.fg
-    elseif hover then
-      bg = M.colors.hover.bg
-      fg = M.colors.hover.fg
-    else
-      bg = M.colors.default.bg
-      fg = M.colors.default.fg
+      M.bell_tabs[tab.tab_id] = nil
     end
+    local has_bell = M.bell_tabs[tab.tab_id] == true
+    local claude = is_claude(pane)
 
-    local has_unseen_output = false
-    for _, pane in ipairs(tab.panes) do
-      if pane.has_unseen_output then
-        has_unseen_output = true
-        break
-      end
+    local c = pick_colors(tab, hover, has_bell, claude)
+    local admin = is_admin(pane.title)
+    local cells = {}
+
+    push(cells, c.fg, c.bg, GLYPH_SEMI_CIRCLE_LEFT)
+    push(cells, c.bg, c.fg, TAB_PAD)
+    if admin then
+      push(cells, c.bg, "#f38ba8", GLYPH_ADMIN .. " ")
     end
-
-    -- Left semi-circle
-    M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_LEFT)
-
-    -- Left padding
-    M.push(bg, fg, { Intensity = "Bold" }, "   ")
-
-    -- Admin Icon
-    if is_admin then
-      M.push(bg, "#f38ba8", { Intensity = "Bold" }, " " .. GLYPH_ADMIN)
+    push(cells, c.bg, c.fg, title)
+    if pane.is_zoomed then
+      push(cells, c.bg, "#f9e2af", " " .. GLYPH_ZOOM)
     end
+    push(cells, c.bg, c.fg, TAB_PAD)
+    push(cells, c.fg, c.bg, GLYPH_SEMI_CIRCLE_RIGHT)
 
-    -- Title
-    M.push(bg, fg, { Intensity = "Bold" }, " " .. title .. " ")
-
-    -- Unseen output alert
-    if has_unseen_output then
-      M.push(bg, "#fab387", { Intensity = "Bold" }, " " .. GLYPH_CIRCLE)
-    end
-
-    -- Right padding
-    M.push(bg, fg, { Intensity = "Bold" }, "   ")
-
-    -- Right semi-circle
-    M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_RIGHT)
-
-    return M.cells
+    return cells
   end)
 end
 
