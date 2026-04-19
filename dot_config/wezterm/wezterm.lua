@@ -3,6 +3,15 @@ local act = wezterm.action
 
 require("events.tabtitle").setup()
 
+-- 右下ステータスに現在のワークスペース名を表示
+wezterm.on("update-status", function(window, _pane)
+  window:set_right_status(wezterm.format({
+    { Foreground = { Color = "#a78bfa" } },
+    { Attribute = { Intensity = "Bold" } },
+    { Text = "  " .. window:active_workspace() .. "  " },
+  }))
+end)
+
 local function split(direction)
   return act({ ["Split" .. direction] = { domain = "CurrentPaneDomain" } })
 end
@@ -37,6 +46,26 @@ local keys = {
   { key = "z",        mods = "LEADER", action = act.TogglePaneZoomState },
   { key = "/",        mods = "LEADER", action = act.Search({ CaseInSensitiveString = "" }) },
   { key = " ",        mods = "LEADER", action = act.QuickSelect },
+  -- ワークスペース
+  { key = "s", mods = "LEADER",       action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+  { key = "S", mods = "LEADER|SHIFT", action = act.PromptInputLine({
+      description = "New workspace name:",
+      action = wezterm.action_callback(function(window, pane, line)
+        if line and line ~= "" then
+          window:perform_action(act.SwitchToWorkspace({ name = line }), pane)
+        end
+      end),
+    })
+  },
+  { key = "$", mods = "LEADER",       action = act.PromptInputLine({
+      description = "Rename workspace to:",
+      action = wezterm.action_callback(function(_window, _pane, line)
+        if line and line ~= "" then
+          wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
+        end
+      end),
+    })
+  },
   -- スクロール・コピーモード
   { key = "PageUp",   mods = "LEADER", action = act.ScrollByPage(-1) },
   { key = "PageDown", mods = "LEADER", action = act.ScrollByPage(1) },
@@ -81,6 +110,9 @@ return {
 
   -- スクロールバック
   scrollback_lines = 10000,
+
+  -- ステータス/タブバーの更新頻度 (デフォルト1000ms → 新規タブやコマンド実行が即反映されるよう短縮)
+  status_update_interval = 250,
 
   -- カラー
   colors = {
