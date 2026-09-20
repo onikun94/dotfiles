@@ -28,7 +28,9 @@
 
 `flake.nix`と`nix/cli-packages.nix`に、Homebrewから段階移行する共通CLIを定義しました。対象は`actionlint`、`awscli2`、`chezmoi`、`deno`、`direnv`、`eza`、`fd`、`gh`、`git-delta`、`git-lfs`、`go`、`jq`、`mise`、`neovim`、`ripgrep`、`starship`、`tmux`です。Bun、Python、Xcode関連、GUI、PostgreSQL、yabaiは現行用途または移行リスクを理由にこの出力へ入れていません。
 
-Nix本体はまだ導入完了していません。公式インストーラは`/nix`用ボリュームの作成時に管理者認証が必要なため、ユーザー側で完了させた後に`make nix-check`と`make nix-build`を実行します。`flake.lock`はその検証時に生成し、入力の固定を確認します。
+Nix本体は導入済みです。Nix 2.35.2のmulti-user daemonが稼働し、`cli` profileを`~/.nix-profile`へ追加しています。`flake.lock`は`nixpkgs-26.05-darwin`の2026-09-15時点のrevへ固定しました。aarch64-darwinの評価・ビルドに加え、x86_64-darwinの評価も成功しています。x86_64-darwinは26.05が最後の対応版という警告が出るため、将来の更新時に再判断します。
+
+新しいログインシェルでは、chezmoi、mise、direnv、ripgrep、fd、Neovim、tmux、starship、git-lfs、actionlint、AWS CLI、eza、gh、Go、jq、DenoがNix profile由来になり、Nodeは引き続きmise管理版です。miseが継承PATHを再構成しても、Nix profileを優先し、存在しないMySQL／Miniforgeのパスを除去します。旧Homebrewのアンインストールはまだ行っていません。
 
 ## Homebrewの二つのprefix
 
@@ -69,3 +71,4 @@ Nix本体はまだ導入完了していません。公式インストーラは`/
 - zshは、PATH・mise、direnv、Conda、Git、alias、表示、アーキテクチャの順に固定して読み込みます。既存のplugin配下はコア設定の後に読み込みます。
 - MySQLとCondaは、インストール先が存在する場合だけPATHやhookを有効化します。
 - `dot_config/nvim/lazy-lock.json`の未コミット差分は既存作業として保持し、今回の重複整理では変更しません。LuaSnip・lspkind、surround・sandwichの設定は現段階では削除せず、操作実績を確認してから判断します。
+- Nix版chezmoiで確認した`architecture.zsh`の`a64`→`x64`差分は、ホーム側の既存変更として上書きせず保持しています。

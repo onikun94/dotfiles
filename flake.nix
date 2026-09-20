@@ -1,7 +1,7 @@
 {
   description = "Personal macOS CLI environment";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
 
   outputs = { self, nixpkgs }:
     let
@@ -23,7 +23,7 @@
           pathsToLink = [ "/bin" "/share" ];
         };
 
-        default = self.packages.${pkgs.system}.cli;
+        default = self.packages.${pkgs.stdenv.hostPlatform.system}.cli;
       });
 
       devShells = forEachSystem (pkgs: {
@@ -32,6 +32,6 @@
         };
       });
 
-      formatter = forEachSystem (pkgs: pkgs.nixfmt-rfc-style);
+      formatter = forEachSystem (pkgs: pkgs.nixfmt);
     };
 }

@@ -11,6 +11,11 @@ if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
 
+# mise activation can rebuild PATH from the inherited environment.
+if [[ -d "$HOME/.nix-profile/bin" ]]; then
+  export PATH="$HOME/.nix-profile/bin:$PATH"
+fi
+
 # Go user binaries
 export PATH="$HOME/go/bin:$PATH"
 
@@ -28,3 +33,11 @@ fi
 
 # meet-transcribe
 export PATH="$HOME/bin:$PATH"
+
+# Remove stale inherited entries after all optional PATH contributors ran.
+typeset -U path
+for stale_path in \
+  "/opt/homebrew/opt/mysql@8.0/bin" \
+  "/opt/homebrew/Caskroom/miniforge/base/bin"; do
+  [[ -d "$stale_path" ]] || path=(${path:#$stale_path})
+done

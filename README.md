@@ -53,6 +53,8 @@ make nix-build
 make nix-install
 ```
 
-`make nix-lock`は`flake.lock`を新規作成または更新します。`make nix-install`は`flake.nix`の`cli`出力をNixプロファイルへ追加するだけで、既存Homebrewのアンインストールや設定ファイルの削除は行いません。パッケージの宣言更新は`make nix-update`を明示的に実行します。
+`make nix-lock`は`flake.lock`を新規作成または更新します。`make nix-install`は初回に`flake.nix`の`cli`出力をNixプロファイルへ追加します。lockや宣言を更新した後の既存profileの更新には`make nix-upgrade`を使います。いずれも既存Homebrewのアンインストールや設定ファイルの削除は行いません。パッケージの宣言更新は`make nix-update`を明示的に実行します。
+
+Makefileはflake操作ごとに`nix-command`と`flakes`を一時的に有効化するため、`/etc/nix/nix.conf`を手作業で変更する必要はありません。
 
 棚卸しの根拠と移行保留項目は[docs/package-inventory.md](docs/package-inventory.md)に記録しています。Homebrew CLIの削除、PostgreSQLのデータ移行、yabaiのLaunchAgent変更は、Nix CLIの実行確認と個別バックアップ後の別段階です。

@@ -2,6 +2,7 @@
 BREW ?= $(shell if [ -x /opt/homebrew/bin/brew ]; then printf '%s' /opt/homebrew/bin/brew; elif [ -x /usr/local/bin/brew ]; then printf '%s' /usr/local/bin/brew; else command -v brew 2>/dev/null; fi)
 NIX ?= nix
 NIX_FLAKE ?= $(CURDIR)
+NIX_FLAGS ?= --extra-experimental-features 'nix-command flakes'
 
 .PHONY: install
 install:
@@ -52,24 +53,29 @@ chezmoi-diff:
 .PHONY: nix-check
 nix-check:
 	@command -v "$(NIX)" >/dev/null 2>&1 || { echo "Nix is not installed; run the official installer first." >&2; exit 2; }
-	"$(NIX)" flake check --no-build "$(NIX_FLAKE)"
+	"$(NIX)" $(NIX_FLAGS) flake check --no-build "$(NIX_FLAKE)"
 
 .PHONY: nix-lock
 nix-lock:
 	@command -v "$(NIX)" >/dev/null 2>&1 || { echo "Nix is not installed; run the official installer first." >&2; exit 2; }
-	"$(NIX)" flake lock "$(NIX_FLAKE)"
+	"$(NIX)" $(NIX_FLAGS) flake lock "$(NIX_FLAKE)"
 
 .PHONY: nix-build
 nix-build:
 	@command -v "$(NIX)" >/dev/null 2>&1 || { echo "Nix is not installed; run the official installer first." >&2; exit 2; }
-	"$(NIX)" build "$(NIX_FLAKE)#cli"
+	"$(NIX)" $(NIX_FLAGS) build "$(NIX_FLAKE)#cli"
 
 .PHONY: nix-install
 nix-install:
 	@command -v "$(NIX)" >/dev/null 2>&1 || { echo "Nix is not installed; run the official installer first." >&2; exit 2; }
-	"$(NIX)" profile install "$(NIX_FLAKE)#cli"
+	"$(NIX)" $(NIX_FLAGS) profile install "$(NIX_FLAKE)#cli"
+
+.PHONY: nix-upgrade
+nix-upgrade:
+	@command -v "$(NIX)" >/dev/null 2>&1 || { echo "Nix is not installed; run the official installer first." >&2; exit 2; }
+	"$(NIX)" $(NIX_FLAGS) profile upgrade cli
 
 .PHONY: nix-update
 nix-update:
 	@command -v "$(NIX)" >/dev/null 2>&1 || { echo "Nix is not installed; run the official installer first." >&2; exit 2; }
-	"$(NIX)" flake update "$(NIX_FLAKE)"
+	"$(NIX)" $(NIX_FLAGS) flake update "$(NIX_FLAKE)"

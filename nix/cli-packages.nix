@@ -1,21 +1,21 @@
 { pkgs }:
 
-with pkgs; [
-  actionlint
-  awscli2
-  chezmoi
-  deno
-  direnv
-  eza
-  fd
-  gh
-  git-delta
-  git-lfs
-  go
-  jq
-  mise
-  neovim
-  ripgrep
-  starship
-  tmux
+[
+  pkgs.actionlint
+  pkgs.awscli2
+  pkgs.chezmoi
+  pkgs.deno
+  pkgs.direnv
+  pkgs.eza
+  pkgs.fd
+  pkgs.gh
+  pkgs.delta
+  pkgs."git-lfs"
+  pkgs.go
+  pkgs.jq
+  pkgs.mise
+  pkgs.neovim
+  pkgs.ripgrep
+  pkgs.starship
+  pkgs.tmux
 ]
