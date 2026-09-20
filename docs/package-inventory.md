@@ -34,6 +34,8 @@ Nix本体は導入済みです。Nix 2.35.2のmulti-user daemonが稼働し、`c
 
 Nixへ移した共通CLI（`actionlint`、`awscli`、`chezmoi`、`direnv`、`deno`、`eza`、`fd`、`gh`、`git-delta`、`go`、`jq`、`mise`、`neovim`、`ripgrep`）は`Brewfile.tmpl`の宣言から外しました。Homebrew側の実体は、プロジェクトの絶対パス参照と利用実績を監査するまで削除しません。`anyenv`、`nvm`、`tfenv`も現在のPATHに存在せず、miseでの代替確認後に宣言対象から外しています。
 
+物理削除の事前監査では、`/opt/homebrew`に残る`direnv`、`gh`、`git-delta`、`go`、`mise`はHomebrew上のインストール済み依存から参照されず、主要プロジェクト内の絶対パス参照も見つかりませんでした。ただし、LaunchAgentや未調査プロジェクトの利用を含む全体保証ではないため、`brew uninstall`はまだ実行していません。`/usr/local`側の旧CLIは、PostgreSQLクラスタと同じprefixに残っているため、旧prefix単位の整理とは分けて扱います。
+
 ## Homebrewの二つのprefix
 
 ### `/opt/homebrew`
