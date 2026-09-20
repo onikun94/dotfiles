@@ -16,13 +16,19 @@
 | `rg` | `/usr/local/bin/rg` → 旧Cellar 13.0.0 | 必須・移行候補 | Nix版へ切り替え、旧版は検証後に撤去 |
 | `fd` | 現在見つからない | Brewfileとの差分 | Nix導入候補。先に必要な作業で確認 |
 | `nvim` / `tmux` / `starship` | いずれも `/usr/local`由来 | 必須・移行候補 | 設定はchezmoiに残し、実行ファイルを段階移行 |
-| `psql` | `/usr/local/bin/psql` → PostgreSQL 14.8_1 | データ依存・保留 | クラスタ、接続先、LaunchAgentを確認してから判断 |
+| `psql` | `/usr/local/bin/psql` → PostgreSQL 14.8_1。ローカルソケットへの接続は失敗し、プロセスもなし | データ依存・保留 | 42MBの旧クラスタをバックアップ・内容確認してから判断 |
 | `bun` / `go` / `xcodegen` | `/opt/homebrew/bin` | 利用実績あり | NixまたはdevShellへの移行候補。代表作業で検証 |
 | `git-lfs` | 見つからないが`.gitconfig`はfilterを宣言 | 設定と実体の不一致 | 実際のLFS利用を確認し、必要ならNixで管理 |
 | `anyenv` | `/usr/local/bin/anyenv` | ランタイム管理の重複候補 | mise利用状況を確認後に停止・撤去を判断 |
 | `nvm` / `tfenv` | Brewfileには宣言、現在のPATHでは見つからない | 宣言と実体の不一致 | miseで代替できるかを用途別に確認 |
 | MySQL | `/opt/homebrew/opt/mysql@8.0/bin`は不存在、`mysql`も見つからない | 古い固定パス | zshから死んだPATHを追加しない。利用が必要なら別途選定 |
 | Miniforge / Conda | `/opt/homebrew/Caskroom/miniforge/base`は不存在、`conda`も見つからない | 古い固定パス | zshから死んだPATHを追加しない。Pythonはmise設定を正とする |
+
+## 第二段階のNix定義
+
+`flake.nix`と`nix/cli-packages.nix`に、Homebrewから段階移行する共通CLIを定義しました。対象は`actionlint`、`awscli2`、`chezmoi`、`deno`、`direnv`、`eza`、`fd`、`gh`、`git-delta`、`git-lfs`、`go`、`jq`、`mise`、`neovim`、`ripgrep`、`starship`、`tmux`です。Bun、Python、Xcode関連、GUI、PostgreSQL、yabaiは現行用途または移行リスクを理由にこの出力へ入れていません。
+
+Nix本体はまだ導入完了していません。公式インストーラは`/nix`用ボリュームの作成時に管理者認証が必要なため、ユーザー側で完了させた後に`make nix-check`と`make nix-build`を実行します。`flake.lock`はその検証時に生成し、入力の固定を確認します。
 
 ## Homebrewの二つのprefix
 
@@ -52,10 +58,10 @@
 
 ## LaunchAgentとデータ保全
 
-- `homebrew.mxcl.yabai.plist`が`/usr/local/opt/yabai/bin/yabai`と`/usr/local/var/log/yabai`を参照しています。旧brew撤去前に、稼働状態と現行yabaiの管理元を確認します。
+- `homebrew.mxcl.yabai.plist`が`/usr/local/opt/yabai/bin/yabai`と`/usr/local/var/log/yabai`を参照しています。現在はyabai本体が見つからず、サービスも存在しませんが、plistは有効設定として残っています。旧brew撤去前に、設定・権限・利用意図を確認します。
 - `com.kaji.collector.socialops.plist`は`/opt/homebrew/bin/bun`を参照します。Bunを移行する場合はLaunchAgentの絶対パスも同時に更新します。
 - `com.cronosu.service.*.plist`と`com.socialops.loop.plist`はPATHに両prefixを含みます。CLI移行後に、ログインシェル以外のPATHを別途検証します。
-- 名前・内容からPostgreSQL/MySQLを起動するLaunchAgentは今回の検索では確認できず、`launchctl list`にも該当ラベルはありませんでした。ただし、`psql`が旧Cellarを参照し、`/usr/local/var/postgres`には約42MBのデータディレクトリが存在するため、バックアップ・接続先・プロセスを確認するまで旧brewを削除しません。
+- 名前・内容からPostgreSQL/MySQLを起動するLaunchAgentは今回の検索では確認できず、`launchctl list`にも該当ラベルはありませんでした。`psql`は旧Cellarを参照し、`/usr/local/var/postgres`には約42MBのデータディレクトリが存在します。現時点で稼働プロセスやローカルソケットはないため、バックアップ・内容・利用元を確認するまで旧brewやデータを削除しません。
 
 ## 既存設定の整理結果
 

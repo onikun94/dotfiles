@@ -1,5 +1,14 @@
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+# Nix is optional until the multi-user installer has completed.
+NIX_DAEMON_PROFILE="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+if [[ -r "$NIX_DAEMON_PROFILE" ]]; then
+  source "$NIX_DAEMON_PROFILE"
+fi
+
 export PATH="/opt/homebrew/bin:$PATH"
+if [[ -d "$HOME/.nix-profile/bin" ]]; then
+  export PATH="$HOME/.nix-profile/bin:$PATH"
+fi
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 # Added by Obsidian
 export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"

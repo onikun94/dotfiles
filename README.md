@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | zsh・Git・Neovim・WezTerm・tmux | chezmoi | `dot_*` / `private_*` として配布 |
 | Node・Pythonなどの言語バージョン | mise | `dot_config/mise/config.toml`で固定 |
-| 共通CLI | Nix（段階移行） | `flake.nix` / `nix/`を将来追加。chezmoiからは除外 |
+| 共通CLI | Nix（段階移行） | `flake.nix` / `nix/cli-packages.nix`で宣言。chezmoiからは除外 |
 | GUI・フォント・移行保留の例外 | Homebrew | `Brewfile.tmpl`で記録。Nix導入後に再評価 |
 | プロジェクト固有の開発依存 | 各プロジェクトのdevShell | このリポジトリでは一括管理しない |
 
@@ -36,4 +36,23 @@ make brew-upgrade
 
 `make install`はセットアップ処理をまとめた互換入口ですが、Homebrewのupdate/upgradeは実行しません。新しいマシンでのchezmoi初期化とHomebrew導入が不要な場合は、個別のターゲットを使います。
 
-棚卸しの根拠と移行保留項目は[docs/package-inventory.md](docs/package-inventory.md)に記録しています。Nix導入、Homebrew CLIの削除、PostgreSQLやLaunchAgentの変更は、棚卸し後の別段階です。
+## Nixの段階導入
+
+Nix本体は、公式のマルチユーザーインストーラを一度だけ実行します。
+
+```sh
+curl -L https://nixos.org/nix/install | sh -s -- --daemon
+```
+
+新しいシェルを起動した後、flakeを検証・ビルドし、必要なときだけユーザープロファイルへ追加します。
+
+```sh
+make nix-lock
+make nix-check
+make nix-build
+make nix-install
+```
+
+`make nix-lock`は`flake.lock`を新規作成または更新します。`make nix-install`は`flake.nix`の`cli`出力をNixプロファイルへ追加するだけで、既存Homebrewのアンインストールや設定ファイルの削除は行いません。パッケージの宣言更新は`make nix-update`を明示的に実行します。
+
+棚卸しの根拠と移行保留項目は[docs/package-inventory.md](docs/package-inventory.md)に記録しています。Homebrew CLIの削除、PostgreSQLのデータ移行、yabaiのLaunchAgent変更は、Nix CLIの実行確認と個別バックアップ後の別段階です。
