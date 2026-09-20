@@ -32,6 +32,8 @@ Nix本体は導入済みです。Nix 2.35.2のmulti-user daemonが稼働し、`c
 
 新しいログインシェルでは、chezmoi、mise、direnv、ripgrep、fd、Neovim、tmux、starship、git-lfs、actionlint、AWS CLI、eza、gh、Go、jq、DenoがNix profile由来になり、Nodeは引き続きmise管理版です。miseが継承PATHを再構成しても、Nix profileを優先し、存在しないMySQL／Miniforgeのパスを除去します。旧Homebrewのアンインストールはまだ行っていません。
 
+Nixへ移した共通CLI（`actionlint`、`awscli`、`chezmoi`、`direnv`、`deno`、`eza`、`fd`、`gh`、`git-delta`、`go`、`jq`、`mise`、`neovim`、`ripgrep`）は`Brewfile.tmpl`の宣言から外しました。Homebrew側の実体は、プロジェクトの絶対パス参照と利用実績を監査するまで削除しません。`anyenv`、`nvm`、`tfenv`も現在のPATHに存在せず、miseでの代替確認後に宣言対象から外しています。
+
 ## Homebrewの二つのprefix
 
 ### `/opt/homebrew`
