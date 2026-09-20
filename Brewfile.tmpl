@@ -11,6 +11,8 @@ brew "anyenv"
 brew "awscli"
 # 複数の異なるマシン間でdotfilesを安全に管理
 brew "chezmoi"
+# $PWDに基づいて環境変数を読み込み/アンロード
+brew "direnv"
 # JavaScriptとTypeScriptのためのセキュアなランタイム
 brew "deno"
 # モダンで保守されているlsの代替
@@ -49,19 +51,20 @@ brew "jq"
 brew "neovim"
 # 複数のNode.jsバージョンを管理
 brew "nvm"
+# 開発ツールやランタイムのバージョン管理
+brew "mise"
 # grepやThe Silver Searcherのような検索ツール
 brew "ripgrep"
 # rbenvにインスピレーションを受けたTerraformバージョンマネージャー
 brew "tfenv"
 # 多数のグリフを持つ開発者向けフォント
 cask "font-hack-nerd-font"
+cask "wezterm"
 
-{{ if .personal }}
+{{ if and (hasKey . "personal") .personal }}
 # Personal packages
 # Google Cloud上でホストされるリソースとアプリケーションを管理するためのツールセット
 cask "google-cloud-sdk"
 {{ else }}
 # Work packages
-# $PWDに基づいて環境変数を読み込み/アンロード
-brew "direnv"
 {{ end }}

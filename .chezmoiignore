@@ -1,3 +1,12 @@
 # Local settings (machine-specific, not synced)
 .zshrc.local
 .zshrc.d/alias.local.zsh
+
+# Repository and migration documentation are not home-directory dotfiles.
+Brewfile
+Makefile
+README.md
+docs/
+flake.lock
+flake.nix
+nix/

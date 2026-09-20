@@ -1,19 +1,24 @@
-# BUN
+# Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-# POETRY
+# User-installed Python tools
 export PATH="$HOME/.local/bin:$PATH"
 
 # mise
-eval "$(~/.local/bin/mise activate zsh)"
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
 
-# go
-export PATH=$PATH:$HOME/go/bin
+# Go user binaries
+export PATH="$HOME/go/bin:$PATH"
 
-# MySQL
-export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
+# MySQL is optional; do not add a dead path when it is not installed.
+MYSQL_BIN="/opt/homebrew/opt/mysql@8.0/bin"
+if [[ -d "$MYSQL_BIN" ]]; then
+  export PATH="$MYSQL_BIN:$PATH"
+fi
 
 # nodebrew (disabled)
 # export PATH=$HOME/.nodebrew/current/bin:$PATH
