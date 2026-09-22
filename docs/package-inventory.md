@@ -28,7 +28,7 @@
 
 `flake.nix`と`nix/cli-packages.nix`に、Homebrewから段階移行する共通CLIを定義しました。対象は`actionlint`、`awscli2`、`chezmoi`、`deno`、`direnv`、`eza`、`fd`、`gh`、`git-delta`、`git-lfs`、`go`、`jq`、`mise`、`neovim`、`ripgrep`、`starship`、`tmux`です。Bun、Python、Xcode関連、GUI、PostgreSQL、yabaiは現行用途または移行リスクを理由にこの出力へ入れていません。
 
-Nix本体は導入済みです。Nix 2.35.2のmulti-user daemonが稼働し、`cli` profileを`~/.nix-profile`へ追加しています。`flake.lock`は`nixpkgs-26.05-darwin`の2026-09-15時点のrevへ固定しました。aarch64-darwinの評価・ビルドに加え、x86_64-darwinの評価も成功しています。x86_64-darwinは26.05が最後の対応版という警告が出るため、将来の更新時に再判断します。
+Nix本体は導入済みです。Nix 2.35.2のmulti-user daemonが稼働し、`cli` profileを`~/.nix-profile`へ追加しています。Intel Mac互換性は不要になったため、flakeの対象は`aarch64-darwin`だけにしています。`flake.lock`は`nixpkgs-unstable`の入力を固定します。
 
 新しいログインシェルでは、chezmoi、mise、direnv、ripgrep、fd、Neovim、tmux、starship、git-lfs、actionlint、AWS CLI、eza、gh、Go、jq、DenoがNix profile由来になり、Nodeは引き続きmise管理版です。miseが継承PATHを再構成しても、Nix profileを優先し、存在しないMySQL／Miniforgeのパスを除去します。旧Homebrewのアンインストールはまだ行っていません。
 

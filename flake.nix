@@ -1,13 +1,12 @@
 {
   description = "Personal macOS CLI environment";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   outputs = { self, nixpkgs }:
     let
       systems = [
         "aarch64-darwin"
-        "x86_64-darwin"
       ];
 
       forEachSystem = f:
