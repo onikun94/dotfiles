@@ -36,6 +36,14 @@ make brew-upgrade
 
 `make install`はセットアップ処理をまとめた互換入口ですが、Homebrewのupdate/upgradeは実行しません。新しいマシンでのchezmoi初期化とHomebrew導入が不要な場合は、個別のターゲットを使います。
 
+新しいApple Silicon Macをこのリポジトリからまとめて初期化する場合は、Nix本体を公式インストーラで導入し、新しいターミナルを開いた後に次を実行します。
+
+```sh
+make bootstrap
+```
+
+`make bootstrap`は、Homebrew導入、chezmoi設定反映、Nix CLIのlock/check/build/profile反映、Brewfileの反映を順に実行します。Nixの`cli` profileがなければinstall、すでにあればupgradeへ分岐するため再実行できます。Homebrewの自動update/upgrade、既存パッケージの削除、PostgreSQLデータやLaunchAgentの変更は行いません。Brewfileの反映で不足しているGUIアプリやフォントはインストールされます。
+
 ## Nixの段階導入
 
 Nix本体は、公式のマルチユーザーインストーラを一度だけ実行します。

@@ -9,6 +9,20 @@ install:
 	$(MAKE) setup-homebrew
 	$(MAKE) setup-dotfile
 
+.PHONY: bootstrap
+bootstrap:
+	$(MAKE) setup-homebrew
+	$(MAKE) setup-dotfile
+	$(MAKE) nix-lock
+	$(MAKE) nix-check
+	$(MAKE) nix-build
+	@if "$(NIX)" $(NIX_FLAGS) profile list --json | grep -q '"cli"'; then \
+		$(MAKE) nix-upgrade; \
+	else \
+		$(MAKE) nix-install; \
+	fi
+	$(MAKE) brew-bundle
+
 .PHONY: setup-homebrew
 setup-homebrew:
 	@if [ -x "$(BREW)" ]; then \
