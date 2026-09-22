@@ -65,4 +65,4 @@ make nix-install
 
 Makefileはflake操作ごとに`nix-command`と`flakes`を一時的に有効化するため、`/etc/nix/nix.conf`を手作業で変更する必要はありません。
 
-棚卸しの根拠と移行保留項目は[docs/package-inventory.md](docs/package-inventory.md)に記録しています。Homebrew CLIの削除、PostgreSQLのデータ移行、yabaiのLaunchAgent変更は、Nix CLIの実行確認と個別バックアップ後の別段階です。
+Homebrew CLIの削除、PostgreSQLのデータ移行、yabaiのLaunchAgent変更は、Nix CLIの実行確認と個別バックアップ後の別段階です。
