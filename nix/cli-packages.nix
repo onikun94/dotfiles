@@ -18,4 +18,5 @@
   pkgs.ripgrep
   pkgs.starship
   pkgs.tmux
+  pkgs.tree-sitter
 ]
