@@ -1,7 +1,7 @@
 ZSH_DIR="${HOME}/.zshrc.d"
 if [[ -d "$ZSH_DIR" && -r "$ZSH_DIR" ]]; then
     # Keep startup order explicit: paths and runtimes first, presentation last.
-    for relative_file in path.zsh direnv.zsh conda.zsh git.zsh alias.zsh profile.zsh architecture.zsh; do
+    for relative_file in path.zsh direnv.zsh git.zsh alias.zsh profile.zsh architecture.zsh; do
         file="${ZSH_DIR}/${relative_file}"
         [[ -r "$file" ]] && source "$file"
     done
@@ -17,7 +17,3 @@ fi
 
 # Load local settings (not managed by chezmoi)
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-# Personal GCP defaults
-export GCP_PROJECT="aitech-good-s19306"
-export GCP_LOCATION="asia-northeast1"
